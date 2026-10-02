@@ -1,0 +1,70 @@
+/* ==========================================================================
+    BARRA DE HERRAMIENTAS - BUSCADOR
+   ========================================================================== */
+.catalog-toolbar {
+    padding-bottom: 2rem;
+}
+
+.toolbar-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* Caja de búsqueda semántica */
+.search-box {
+    display: flex;
+    align-items: center;
+    max-width: 640px;
+    height: 48px;
+    background-color: var(--color-surface-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0 0.85rem;
+    transition: border-color var(--transition), background-color var(--transition);
+}
+
+.search-box:focus-within {
+    background-color: var(--color-surface);
+    border-color: var(--color-text-main);
+}
+
+.search-icon {
+    font-size: 20px;
+    color: var(--color-text-muted);
+    margin-right: 0.5rem;
+    user-select: none;
+}
+
+.search-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    font-size: 0.95rem;
+    color: var(--color-text-main);
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+/* Quitar la cruz nativa */
+.search-input::-webkit-search-cancel-button {
+    display: none;
+}
+
+.search-clear {
+    color: var(--color-text-muted);
+    display: inline-flex;
+    align-items: center;
+    padding: 2px;
+}
+
+.search-clear:hover {
+    color: var(--color-text-main);
+}
+
+.search-clear.hidden {
+    display: none;
+}
