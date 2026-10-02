@@ -1,0 +1,162 @@
+/* ==========================================================================
+    BARRA DE HERRAMIENTAS - BUSCADOR
+   ========================================================================== */
+.catalog-toolbar {
+    /* Separación superior respecto al texto editorial y hacia las tarjetas */
+    padding-top: 0.75rem;
+    padding-bottom: 3.5rem;
+}
+
+.toolbar-form {
+    display: flex;
+    flex-direction: column;
+    /* Más separación entre el buscador y las píldoras de abajo */
+    gap: 1.75rem;
+}
+
+/* Caja de búsqueda semántica */
+.search-box {
+    display: flex;
+    align-items: center;
+    max-width: 640px;
+    height: 48px;
+    background-color: var(--color-surface-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0 0.85rem;
+    transition: border-color var(--transition), background-color var(--transition);
+}
+
+.search-box:focus-within {
+    background-color: var(--color-surface);
+    border-color: var(--color-text-main);
+}
+
+.search-icon {
+    font-size: 20px;
+    color: var(--color-text-muted);
+    margin-right: 0.5rem;
+    user-select: none;
+}
+
+.search-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    font-size: 0.95rem;
+    color: var(--color-text-main);
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+/* Quitar la cruz nativa */
+.search-input::-webkit-search-cancel-button {
+    display: none;
+}
+
+.search-clear {
+    color: var(--color-text-muted);
+    display: inline-flex;
+    align-items: center;
+    padding: 2px;
+}
+
+.search-clear:hover {
+    color: var(--color-text-main);
+}
+
+.search-clear.hidden {
+    display: none;
+}
+
+/* Píldoras de género */
+.genre-pills {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.genre-pills::-webkit-scrollbar {
+    display: none;
+}
+
+.genre-pill {
+    padding: 0.45rem 1rem;
+    border-radius: var(--radius-full);
+    font-size: 0.825rem;
+    font-weight: 500;
+    white-space: nowrap;
+    background-color: var(--color-surface-soft);
+    color: var(--color-text-muted);
+    border: 1px solid transparent;
+    transition: all var(--transition);
+}
+
+.genre-pill:hover {
+    background-color: var(--color-border);
+    color: var(--color-text-main);
+}
+
+.genre-pill.active {
+    background-color: var(--color-primary);
+    color: var(--color-primary-text);
+    font-weight: 600;
+}
+
+/* Disposición en fila de controles */
+.toolbar-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+    .toolbar-controls {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+/* Grupo de selectores */
+fieldset.select-controls {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.select-group {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--color-surface-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.4rem 0.75rem;
+}
+
+.select-label {
+    font-size: 0.825rem;
+    color: var(--color-text-muted);
+    margin-right: 0.4rem;
+}
+
+.filter-select {
+    background: transparent;
+    border: none;
+    font-size: 0.825rem;
+    font-weight: 500;
+    color: var(--color-text-main);
+    outline: none;
+    cursor: pointer;
+}
