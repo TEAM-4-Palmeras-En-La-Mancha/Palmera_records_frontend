@@ -68,3 +68,41 @@
 .search-clear.hidden {
     display: none;
 }
+
+/* Píldoras de género */
+.genre-pills {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.genre-pills::-webkit-scrollbar {
+    display: none;
+}
+
+.genre-pill {
+    padding: 0.45rem 1rem;
+    border-radius: var(--radius-full);
+    font-size: 0.825rem;
+    font-weight: 500;
+    white-space: nowrap;
+    background-color: var(--color-surface-soft);
+    color: var(--color-text-muted);
+    border: 1px solid transparent;
+    transition: all var(--transition);
+}
+
+.genre-pill:hover {
+    background-color: var(--color-border);
+    color: var(--color-text-main);
+}
+
+.genre-pill.active {
+    background-color: var(--color-primary);
+    color: var(--color-primary-text);
+    font-weight: 600;
+}

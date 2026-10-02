@@ -16,6 +16,7 @@
 
     <!-- Hoja de estilos externa -->
     <link rel="stylesheet" href="src/css/styles.css" />
+    <link rel="stylesheet" href="src/css/filters.css" />
 </head>
 
 <body>
@@ -78,6 +79,16 @@
                             <span class="material-symbols-outlined">close</span>
                         </button>
                     </search>
+
+                    <!-- Píldoras de categoría por género -->
+                    <nav class="genre-pills" id="genreFilters" aria-label="Filtrar por género musical">
+                        <button type="button" class="genre-pill active" data-genre="all">Todos</button>
+                        <button type="button" class="genre-pill" data-genre="indie">Indie &amp; Shoegaze</button>
+                        <button type="button" class="genre-pill" data-genre="rock">Rock &amp; Punk</button>
+                        <button type="button" class="genre-pill" data-genre="electro">Electrónica &amp; Ambient</button>
+                        <button type="button" class="genre-pill" data-genre="jazz">Jazz &amp; Fusion</button>
+                        <button type="button" class="genre-pill" data-genre="folk">Folk &amp; Raíz</button>
+                    </nav>
 
                 </form>
             </div>
