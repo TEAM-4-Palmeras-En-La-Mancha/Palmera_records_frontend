@@ -81,14 +81,42 @@
                     </search>
 
                     <!-- Píldoras de categoría por género -->
-                    <nav class="genre-pills" id="genreFilters" aria-label="Filtrar por género musical">
-                        <button type="button" class="genre-pill active" data-genre="all">Todos</button>
-                        <button type="button" class="genre-pill" data-genre="indie">Indie &amp; Shoegaze</button>
-                        <button type="button" class="genre-pill" data-genre="rock">Rock &amp; Punk</button>
-                        <button type="button" class="genre-pill" data-genre="electro">Electrónica &amp; Ambient</button>
-                        <button type="button" class="genre-pill" data-genre="jazz">Jazz &amp; Fusion</button>
-                        <button type="button" class="genre-pill" data-genre="folk">Folk &amp; Raíz</button>
-                    </nav>
+                    <!-- Fila de controles: Píldoras + Selectores -->
+                    <div class="toolbar-controls">
+                        <!-- Píldoras de género -->
+                        <nav class="genre-pills" id="genreFilters" aria-label="Filtrar por género musical">
+                            <button type="button" class="genre-pill active" data-genre="all">Todos</button>
+                            <button type="button" class="genre-pill" data-genre="indie">Indie &amp; Shoegaze</button>
+                            <button type="button" class="genre-pill" data-genre="rock">Rock &amp; Punk</button>
+                            <button type="button" class="genre-pill" data-genre="electro">Electrónica &amp;
+                                Ambient</button>
+                            <button type="button" class="genre-pill" data-genre="jazz">Jazz &amp; Fusion</button>
+                            <button type="button" class="genre-pill" data-genre="folk">Folk &amp; Raíz</button>
+                        </nav>
+
+                        <!-- Desplegables de formato y ordenación -->
+                        <fieldset class="select-controls">
+                            <div class="select-group">
+                                <label for="formatSelector" class="select-label">Formato:</label>
+                                <select id="formatSelector" class="filter-select">
+                                    <option value="all">Todos los formatos</option>
+                                    <option value="vinyl">Vinilo LP</option>
+                                    <option value="cd">CD Deluxe</option>
+                                    <option value="cassette">Cassette</option>
+                                </select>
+                            </div>
+
+                            <div class="select-group">
+                                <label for="sortSelector" class="select-label">Ordenar:</label>
+                                <select id="sortSelector" class="filter-select">
+                                    <option value="newest">Novedades</option>
+                                    <option value="artist">Artista (A-Z)</option>
+                                    <option value="price-asc">Precio menor</option>
+                                    <option value="price-desc">Precio mayor</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                    </div>
 
                 </form>
             </div>

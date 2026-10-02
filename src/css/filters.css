@@ -106,3 +106,54 @@
     color: var(--color-primary-text);
     font-weight: 600;
 }
+
+/* Disposición en fila de controles */
+.toolbar-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+    .toolbar-controls {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+/* Grupo de selectores */
+fieldset.select-controls {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.select-group {
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--color-surface-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.4rem 0.75rem;
+}
+
+.select-label {
+    font-size: 0.825rem;
+    color: var(--color-text-muted);
+    margin-right: 0.4rem;
+}
+
+.filter-select {
+    background: transparent;
+    border: none;
+    font-size: 0.825rem;
+    font-weight: 500;
+    color: var(--color-text-main);
+    outline: none;
+    cursor: pointer;
+}
