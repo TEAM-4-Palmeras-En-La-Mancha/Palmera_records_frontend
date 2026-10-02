@@ -2,13 +2,16 @@
     BARRA DE HERRAMIENTAS - BUSCADOR
    ========================================================================== */
 .catalog-toolbar {
-    padding-bottom: 2rem;
+    /* Separación superior respecto al texto editorial y hacia las tarjetas */
+    padding-top: 0.75rem;
+    padding-bottom: 3.5rem;
 }
 
 .toolbar-form {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    /* Más separación entre el buscador y las píldoras de abajo */
+    gap: 1.75rem;
 }
 
 /* Caja de búsqueda semántica */
