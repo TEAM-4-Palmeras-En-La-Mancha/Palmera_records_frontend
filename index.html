@@ -9,19 +9,18 @@
     <!-- Google Fonts: Inter y Material Symbols -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 
-    <!-- Hoja de estilos externa -->
+    <!-- Hojas de estilos modulares -->
     <link rel="stylesheet" href="src/css/styles.css" />
     <link rel="stylesheet" href="src/css/filters.css" />
+    <link rel="stylesheet" href="src/css/catalog.css" />
 </head>
 
 <body>
 
-    <!-- Navegación superior -->
+    <!-- 1. Cabecera y Navegación superior -->
     <header id="main-header">
         <div class="container header-container">
             <div class="header-brand">
@@ -46,10 +45,10 @@
         </div>
     </header>
 
-    <!-- Contenido principal -->
+    <!-- 2. Contenido principal -->
     <main id="main-content">
 
-        <!-- Cabecera Editorial -->
+        <!-- Bloque 1: Cabecera Editorial -->
         <section class="catalog-hero">
             <div class="container">
                 <div class="hero-content">
@@ -64,37 +63,32 @@
             </div>
         </section>
 
-        <!-- Barra de Búsqueda y Filtros -->
+        <!-- Bloque 2: Barra de Búsqueda y Filtros -->
         <section class="catalog-toolbar" aria-label="Búsqueda y filtros del catálogo">
             <div class="container">
                 <form class="toolbar-form" role="search" onsubmit="event.preventDefault();">
 
-                    <!-- Componente: Buscador semántico -->
+                    <!-- Buscador semántico -->
                     <search class="search-box">
                         <span class="material-symbols-outlined search-icon">search</span>
                         <input type="search" id="catalogSearch" class="search-input"
                             placeholder="Buscar por artista, álbum, sello o referencia..." autocomplete="off" />
-                        <button type="button" id="clearSearch" class="search-clear hidden"
-                            aria-label="Limpiar búsqueda">
+                        <button type="button" id="clearSearch" class="search-clear hidden" aria-label="Limpiar búsqueda">
                             <span class="material-symbols-outlined">close</span>
                         </button>
                     </search>
 
-                    <!-- Píldoras de categoría por género -->
                     <!-- Fila de controles: Píldoras + Selectores -->
                     <div class="toolbar-controls">
-                        <!-- Píldoras de género -->
                         <nav class="genre-pills" id="genreFilters" aria-label="Filtrar por género musical">
                             <button type="button" class="genre-pill active" data-genre="all">Todos</button>
                             <button type="button" class="genre-pill" data-genre="indie">Indie &amp; Shoegaze</button>
                             <button type="button" class="genre-pill" data-genre="rock">Rock &amp; Punk</button>
-                            <button type="button" class="genre-pill" data-genre="electro">Electrónica &amp;
-                                Ambient</button>
+                            <button type="button" class="genre-pill" data-genre="electro">Electrónica &amp; Ambient</button>
                             <button type="button" class="genre-pill" data-genre="jazz">Jazz &amp; Fusion</button>
                             <button type="button" class="genre-pill" data-genre="folk">Folk &amp; Raíz</button>
                         </nav>
 
-                        <!-- Desplegables de formato y ordenación -->
                         <fieldset class="select-controls">
                             <div class="select-group">
                                 <label for="formatSelector" class="select-label">Formato:</label>
@@ -122,9 +116,44 @@
             </div>
         </section>
 
+        <!-- Bloque 3: Parrilla del Catálogo (Discos) -->
+        <section class="catalog-section" aria-label="Catálogo de discos">
+            <div class="container">
+                <div class="catalog-grid" id="catalogGrid">
+
+                    <article class="album-card">
+                        <div class="album-cover-wrapper">
+                            <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=600&q=80"
+                                alt="Portada de Skinty Fia de Fontaines D.C." class="album-cover" loading="lazy" />
+                            <span class="album-badge">Vinilo LP</span>
+                        </div>
+
+                        <div class="album-info">
+                            <span class="album-artist">Fontaines D.C.</span>
+                            <h2 class="album-title">Skinty Fia</h2>
+
+                            <div class="album-meta">
+                                <span>2022</span>
+                                <span class="meta-dot">•</span>
+                                <span>Partisan Records</span>
+                            </div>
+
+                            <div class="album-footer">
+                                <span class="album-price">26,50 €</span>
+                                <button type="button" class="album-buy-btn" aria-label="Añadir Skinty Fia al carrito">
+                                    Añadir
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Pie de página -->
+    <!-- 3. Pie de página -->
     <footer id="main-footer">
         <!-- Próximo bloque -->
     </footer>

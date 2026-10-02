@@ -1,0 +1,134 @@
+/* ==========================================================================
+    PARRILLA Y TARJETAS DE CATÁLOGO
+   ========================================================================== */
+.catalog-section {
+    padding-bottom: 4rem;
+}
+
+/* Cuadrícula autoajustable */
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Tarjeta individual */
+.album-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color var(--transition), transform var(--transition);
+}
+
+.album-card:hover {
+    border-color: var(--color-border-hover);
+    transform: translateY(-2px);
+}
+
+/* Contenedor de portada */
+.album-cover-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: var(--color-surface-soft);
+    overflow: hidden;
+}
+
+.album-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition);
+}
+
+.album-card:hover .album-cover {
+    transform: scale(1.02);
+}
+
+/* Etiqueta de formato sobre la imagen */
+.album-badge {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background-color: rgba(24, 24, 27, 0.85);
+    color: #ffffff;
+    padding: 3px 6px;
+    border-radius: var(--radius-sm);
+    backdrop-filter: blur(4px);
+}
+
+/* Información y textos */
+.album-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 1rem;
+}
+
+.album-artist {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    margin-bottom: 0.25rem;
+}
+
+.album-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--color-text-main);
+    margin-bottom: 0.4rem;
+}
+
+.album-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1.25rem;
+}
+
+.meta-dot {
+    font-size: 0.6rem;
+}
+
+/* Pie de la tarjeta (precio y botón) */
+.album-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--color-surface-soft);
+}
+
+.album-price {
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-text-main);
+}
+
+.album-buy-btn {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.4rem 0.85rem;
+    background-color: var(--color-primary);
+    color: var(--color-primary-text);
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition);
+}
+
+.album-buy-btn:hover {
+    background-color: var(--color-primary-hover);
+}
