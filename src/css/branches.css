@@ -114,3 +114,20 @@
     color: var(--color-text-main);
     margin-bottom: 0.35rem;
 }
+
+/* Contenedor del mapa en cada tarjeta */
+.branch-map-wrapper {
+    margin-top: 1rem;
+    width: 100%;
+    height: 150px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+
+.branch-map-frame {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
