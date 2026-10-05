@@ -2,16 +2,36 @@
     SEDES / FILIALES FÍSICAS
    ========================================================================== */
 .branches-section {
+    /* Separación inferior holgada con respecto al bloque de stock */
     padding-bottom: 4rem;
 }
 
 .section-heading {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 2rem;
     margin-bottom: 1.75rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-text-main);
+}
+
+/* Grid de las 3 tiendas */
+.branches-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding-bottom: 3.5rem;
     border-bottom: 1px solid var(--color-border);
-    padding-bottom: 0.85rem;
+}
+
+@media (min-width: 768px) {
+    .branches-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 @media (min-width: 640px) {
