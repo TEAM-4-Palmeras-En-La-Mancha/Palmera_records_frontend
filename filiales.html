@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="src/css/styles.css" />
     <link rel="stylesheet" href="src/css/hero.css" />
     <link rel="stylesheet" href="src/css/branches.css" />
+    <link rel="stylesheet" href="src/css/stock.css" />
 </head>
 
 <body>
@@ -122,6 +123,124 @@
                             <p>Sáb: 10:30 — 14:30</p>
                         </div>
                     </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Disponibilidad de Stock Global -->
+        <section class="stock-section" aria-label="Disponibilidad de stock">
+            <div class="container">
+                <div class="stock-header">
+                    <h2 class="section-title">Disponibilidad por Álbum</h2>
+                    <p class="stock-caption">
+                        Inventario centralizado actualizado en tiempo real según las ventas de las últimas horas.
+                    </p>
+                </div>
+
+                <div class="stock-table-wrapper">
+                    <table class="stock-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Álbum y Artista</th>
+                                <th scope="col">Formato</th>
+                                <th scope="col">Disponibilidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Fila 1 -->
+                            <tr class="stock-row">
+                                <td class="album-cell">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=120&q=80"
+                                        alt="Portada de Skinty Fia"
+                                        class="stock-thumb"
+                                        loading="lazy"
+                                    />
+                                    <div class="album-meta-text">
+                                        <span class="stock-album-title">Skinty Fia</span>
+                                        <span class="stock-album-artist">Fontaines D.C.</span>
+                                    </div>
+                                </td>
+                                <td class="format-cell">Vinilo LP (180g Prensaje Audiófilo)</td>
+                                <td class="status-cell">
+                                    <span class="stock-badge in-stock">
+                                        <span class="badge-dot"></span>
+                                        Disponible (8 uds.)
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <!-- Fila 2 -->
+                            <tr class="stock-row">
+                                <td class="album-cell">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=120&q=80"
+                                        alt="Portada de everything is alive"
+                                        class="stock-thumb"
+                                        loading="lazy"
+                                    />
+                                    <div class="album-meta-text">
+                                        <span class="stock-album-title">everything is alive</span>
+                                        <span class="stock-album-artist">Slowdive</span>
+                                    </div>
+                                </td>
+                                <td class="format-cell">Vinilo LP (Edición Especial)</td>
+                                <td class="status-cell">
+                                    <span class="stock-badge low-stock">
+                                        <span class="badge-dot"></span>
+                                        Últimas 2 uds.
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <!-- Fila 3 -->
+                            <tr class="stock-row">
+                                <td class="album-cell">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=120&q=80"
+                                        alt="Portada de TANGK"
+                                        class="stock-thumb"
+                                        loading="lazy"
+                                    />
+                                    <div class="album-meta-text">
+                                        <span class="stock-album-title">TANGK</span>
+                                        <span class="stock-album-artist">IDLES</span>
+                                    </div>
+                                </div>
+                                </td>
+                                <td class="format-cell">CD Master Audiófilo</td>
+                                <td class="status-cell">
+                                    <span class="stock-badge in-stock">
+                                        <span class="badge-dot"></span>
+                                        Disponible (12 uds.)
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <!-- Fila 4 -->
+                            <tr class="stock-row">
+                                <td class="album-cell">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=120&q=80"
+                                        alt="Portada de Space Heavy"
+                                        class="stock-thumb"
+                                        loading="lazy"
+                                    />
+                                    <div class="album-meta-text">
+                                        <span class="stock-album-title">Space Heavy</span>
+                                        <span class="stock-album-artist">King Krule</span>
+                                    </div>
+                                </td>
+                                <td class="format-cell">Cassette Edición Limitada</td>
+                                <td class="status-cell">
+                                    <span class="stock-badge out-of-stock">
+                                        <span class="badge-dot"></span>
+                                        Agotado
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>

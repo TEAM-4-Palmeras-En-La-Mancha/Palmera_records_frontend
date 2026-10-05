@@ -1,0 +1,145 @@
+/* ==========================================================================
+   TABLA DE STOCK GLOBAL
+   ========================================================================== */
+.stock-section {
+    padding-bottom: 5rem;
+}
+
+.stock-header {
+    margin-bottom: 1.5rem;
+}
+
+.stock-caption {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-top: 0.35rem;
+}
+
+/* Scroll horizontal en móviles */
+.stock-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+}
+
+.stock-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    min-width: 620px;
+}
+
+/* Cabecera de la tabla */
+.stock-table thead tr {
+    background-color: var(--color-surface-soft);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.stock-table th {
+    padding: 0.9rem 1.25rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+/* Filas y celdas */
+.stock-row {
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color var(--transition);
+}
+
+.stock-row:last-child {
+    border-bottom: none;
+}
+
+.stock-row:hover {
+    background-color: var(--color-surface-soft);
+}
+
+.stock-table td {
+    padding: 1rem 1.25rem;
+    vertical-align: middle;
+}
+
+/* Celda de Álbum (miniatura + texto) */
+.album-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.stock-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    flex-shrink: 0;
+    background-color: var(--color-surface-soft);
+}
+
+.album-meta-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.stock-album-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    line-height: 1.25;
+}
+
+.stock-album-artist {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+
+/* Celda de formato */
+.format-cell {
+    font-size: 0.85rem;
+    color: var(--color-text-main);
+}
+
+/* Indicadores de disponibilidad */
+.stock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: var(--radius-full);
+}
+
+/* Estados */
+.stock-badge.in-stock {
+    color: #047857;
+}
+
+.stock-badge.in-stock .badge-dot {
+    background-color: #047857;
+}
+
+.stock-badge.low-stock {
+    color: var(--color-accent);
+}
+
+.stock-badge.low-stock .badge-dot {
+    background-color: var(--color-accent);
+}
+
+.stock-badge.out-of-stock {
+    color: var(--color-text-muted);
+}
+
+.stock-badge.out-of-stock .badge-dot {
+    background-color: var(--color-border-hover);
+}
