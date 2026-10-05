@@ -269,9 +269,9 @@ function renderForm() {
     if (currentAction === 'create') legendText = `Nuevo Registro en ${config.title}`;
     if (currentAction === 'update') {
         const ref = currentEntity === 'stock'
-            ? `Álbum #${editingItem?.album_id} / Formato #${editingItem?.format_id}`
-            : `#${editingItem?.id || ''}`;
-        legendText = `Modificar Registro ${ref}`;
+            ? (editingItem ? `Stock: Álbum #${editingItem.album_id} / Formato #${editingItem.format_id}` : 'Stock')
+            : `#${editingItem?.id || 'Sin seleccionar'}`;
+        legendText = `Modificar Registro (${ref})`;
     }
     if (currentAction === 'delete') legendText = 'Confirmar Baja Definitiva';
 
@@ -290,10 +290,63 @@ function renderForm() {
         executeBtn.textContent = 'Guardar Registro';
         executeBtn.className = 'btn-execute';
         formGridEl.insertAdjacentHTML('beforeend', config.getFields());
+        initCoverPreview();
     } else if (currentAction === 'update') {
-        executeBtn.textContent = 'Actualizar Registro';
-        executeBtn.className = 'btn-execute';
-        formGridEl.insertAdjacentHTML('beforeend', config.getFields(editingItem || {}));
+        if (!editingItem) {
+            executeBtn.textContent = 'Cargar Datos para Editar';
+            executeBtn.className = 'btn-execute';
+
+            if (currentEntity === 'stock') {
+                formGridEl.insertAdjacentHTML('beforeend', `
+                    <div class="form-field full-width" style="background-color: var(--color-surface-soft); padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid var(--color-text-main);">
+                        <p style="margin: 0 0 0.35rem 0; font-size: 0.85rem; font-weight: 600;">No has seleccionado ningún elemento de stock.</p>
+                        <p style="margin: 0; font-size: 0.8rem; color: var(--color-text-muted);">Indica el ID del Álbum y del Formato o pulsa <strong>«Editar»</strong> en la tabla inferior.</p>
+                    </div>
+                    <div class="form-field">
+                        <label for="manual-stock-album">ID del Álbum *</label>
+                        <input type="number" id="manual-stock-album" class="admin-input" placeholder="Ej: 1" required />
+                    </div>
+                    <div class="form-field">
+                        <label for="manual-stock-format">ID del Formato *</label>
+                        <input type="number" id="manual-stock-format" class="admin-input" placeholder="Ej: 1" required />
+                    </div>
+                `);
+            } else {
+                formGridEl.insertAdjacentHTML('beforeend', `
+                    <div class="form-field full-width" style="background-color: var(--color-surface-soft); padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid var(--color-text-main);">
+                        <p style="margin: 0 0 0.35rem 0; font-size: 0.85rem; font-weight: 600;">No has seleccionado ningún registro.</p>
+                        <p style="margin: 0; font-size: 0.8rem; color: var(--color-text-muted);">Introduce el ID a continuación o pulsa <strong>«Editar»</strong> en la fila correspondiente de la tabla inferior.</p>
+                    </div>
+                    <div class="form-field full-width">
+                        <label for="manual-edit-id">ID o Referencia del registro a modificar *</label>
+                        <input type="number" id="manual-edit-id" class="admin-input" placeholder="Ej: 1" required />
+                    </div>
+                `);
+            }
+        } else {
+            executeBtn.textContent = 'Actualizar Registro';
+            executeBtn.className = 'btn-execute';
+
+            const itemName = editingItem.name || editingItem.title || (currentEntity === 'stock' ? `Álbum #${editingItem.album_id} / Formato #${editingItem.format_id}` : `#${editingItem.id}`);
+            const refText = currentEntity === 'stock' ? `Stock Álbum #${editingItem.album_id} & Formato #${editingItem.format_id}` : `Ref. #${editingItem.id}`;
+
+            formGridEl.insertAdjacentHTML('beforeend', `
+                <div class="form-field full-width" style="background-color: #f0fdf4; border: 1px solid #bbf7d0; padding: 0.75rem 1rem; border-radius: var(--radius-sm); display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-size: 0.85rem; color: #166534;">
+                        <strong>Modificando:</strong> ${refText} — <em>${escapeHtml(itemName)}</em>
+                    </div>
+                    <button type="button" id="btn-cancel-edit" class="btn-inline-action" style="background: #ffffff;">Cancelar</button>
+                </div>
+            `);
+
+            formGridEl.insertAdjacentHTML('beforeend', config.getFields(editingItem));
+            initCoverPreview();
+
+            document.getElementById('btn-cancel-edit')?.addEventListener('click', () => {
+                editingItem = null;
+                switchAction('search');
+            });
+        }
     } else if (currentAction === 'delete') {
         executeBtn.textContent = 'Confirmar Baja Definitiva';
         executeBtn.className = 'btn-execute btn-danger';
@@ -304,8 +357,27 @@ function renderForm() {
             </div>
         `);
     }
+}
 
-    // Activar vista previa al elegir archivo de imagen
+async function loadItemToEdit(id, formatId = null) {
+    const config = ENTITIES[currentEntity];
+    if (!config) return;
+
+    try {
+        setStatus('loading', 'Cargando datos...');
+        const url = formatId ? `${config.endpoint}/${id}/${formatId}` : `${config.endpoint}/${id}`;
+        const response = await api.get(url);
+        editingItem = response.data;
+        setStatus('ok', 'Sistema conectado');
+        renderForm();
+    } catch (err) {
+        console.error(err);
+        setStatus('error', 'Registro no encontrado');
+        showNotification(formatId ? `No se encontró stock para Álbum #${id} y Formato #${formatId}` : `No existe ningún registro con ID #${id}`, 'error');
+    }
+}
+
+function initCoverPreview() {
     const coverInput = document.getElementById('f-cover-file');
     const previewBox = document.getElementById('cover-preview-box');
     if (coverInput && previewBox) {
@@ -494,7 +566,18 @@ if (formEl) {
         } else if (currentAction === 'create') {
             createRecord(config.getPayload());
         } else if (currentAction === 'update') {
-            updateRecord(config.getPayload());
+            if (!editingItem) {
+                if (currentEntity === 'stock') {
+                    const aId = document.getElementById('manual-stock-album')?.value.trim();
+                    const fId = document.getElementById('manual-stock-format')?.value.trim();
+                    if (aId && fId) loadItemToEdit(aId, fId);
+                } else {
+                    const manualId = document.getElementById('manual-edit-id')?.value.trim();
+                    if (manualId) loadItemToEdit(manualId);
+                }
+            } else {
+                updateRecord(config.getPayload());
+            }
         } else if (currentAction === 'delete') {
             const deleteId = document.getElementById('delete-id')?.value.trim();
             if (deleteId) deleteRecord(deleteId);
