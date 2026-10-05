@@ -1,0 +1,153 @@
+/* ==========================================================================
+    SEDES / FILIALES FÍSICAS
+   ========================================================================== */
+.branches-section {
+    /* Separación inferior holgada con respecto al bloque de stock */
+    padding-bottom: 4rem;
+}
+
+.section-heading {
+    border-top: 1px solid var(--color-border);
+    padding-top: 2rem;
+    margin-bottom: 1.75rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-text-main);
+}
+
+/* Grid de las 3 tiendas */
+.branches-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding-bottom: 3.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+@media (min-width: 768px) {
+    .branches-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 640px) {
+    .section-heading {
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: space-between;
+    }
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-text-main);
+}
+
+.section-caption {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+/* Grid de las 3 tiendas */
+.branches-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .branches-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Tarjeta individual */
+.branch-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    transition: border-color var(--transition);
+}
+
+.branch-card:hover {
+    border-color: var(--color-border-hover);
+}
+
+.branch-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 0.4rem;
+}
+
+.branch-city {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin-bottom: 0.75rem;
+}
+
+.branch-address {
+    font-style: normal;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+}
+
+.branch-phone {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+}
+
+.branch-phone:hover {
+    color: var(--color-accent);
+}
+
+/* Horarios */
+.branch-hours {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-surface-soft);
+    font-size: 0.825rem;
+    color: var(--color-text-muted);
+    line-height: 1.45;
+}
+
+.hours-label {
+    display: block;
+    font-weight: 600;
+    color: var(--color-text-main);
+    margin-bottom: 0.35rem;
+}
+
+/* Contenedor del mapa en cada tarjeta */
+.branch-map-wrapper {
+    margin-top: 1rem;
+    width: 100%;
+    height: 150px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+}
+
+.branch-map-frame {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
