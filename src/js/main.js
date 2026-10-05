@@ -1,2 +1,2 @@
-import "./components/header.js";
-import "./components/footer.js";
+import "./html_components/header.js";
+import "./html_components/footer.js";
