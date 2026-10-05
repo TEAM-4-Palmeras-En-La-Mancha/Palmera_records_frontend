@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palmeras Records — Panel de Control</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Hojas de estilo base y módulos -->
+    <link rel="stylesheet" href="../../src/css/styles.css" />
+    <link rel="stylesheet" href="../../src/css/hero.css" />
+    <link rel="stylesheet" href="../../src/css/admin.css" />
+    <link rel="stylesheet" href="../../src/css/footer.css" />
+</head>
+<body>
+
+    <!-- Cabecera principal -->
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="brand-group">
+                <a href="../../index.html" class="brand-logo">PALMERAS RECORDS</a>
+                <span class="brand-badge">GESTIÓN</span>
+            </div>
+            <nav class="main-nav" aria-label="Navegación principal">
+                <a href="../../index.html" class="nav-link">Catálogo</a>
+                <a href="../filiales.html" class="nav-link">Filiales y Stock</a>
+                <a href="index.html" class="nav-link active">Panel de Control</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main id="main-content">
+
+        <!-- Cabecera Hero -->
+        <section class="catalog-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="hero-eyebrow">Administración Interna</span>
+                    <h1 class="hero-title">Panel de Control y Catálogo</h1>
+                    <p class="hero-description">
+                        Herramienta de gestión centralizada para el equipo. Permite consultar existencias, dar de alta nuevos lanzamientos, actualizar fichas de artistas y coordinar las tiendas físicas.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Consola de Gestión -->
+        <section class="admin-section" aria-label="Gestión de catálogo e inventario">
+            <div class="container admin-layout">
+
+                <!-- Barra lateral: Secciones de gestión -->
+                <aside class="admin-sidebar" aria-label="Secciones disponibles">
+                    <h2 class="sidebar-heading">Áreas de Gestión</h2>
+                    <nav class="entity-nav" aria-label="Menú de entidades">
+                        <button type="button" class="entity-btn active" data-entity="albums">
+                            <span>Álbumes</span>
+                        </button>
+                        <button type="button" class="entity-btn" data-entity="artists">
+                            <span>Artistas</span>
+                        </button>
+                        <button type="button" class="entity-btn" data-entity="branches">
+                            <span>Tiendas</span>
+                        </button>
+                        <button type="button" class="entity-btn" data-entity="formats">
+                            <span>Formatos Físicos</span>
+                        </button>
+                        <button type="button" class="entity-btn" data-entity="record_labels">
+                            <span>Discográficas</span>
+                        </button>
+                        <button type="button" class="entity-btn" data-entity="stock">
+                            <span>Stock</span>
+                        </button>
+                    </nav>
+                </aside>
+
+                <!-- Área de trabajo -->
+                <section class="admin-workspace" aria-labelledby="workspace-section-title">
+
+                    <!-- Barra de acción -->
+                    <header class="workspace-header">
+                        <div>
+                            <h3 class="endpoint-title" id="workspace-section-title">Gestión de Álbumes</h3>
+                            <p class="workspace-caption">Seleccione una acción para consultar o editar la colección musical.</p>
+                        </div>
+                        <div class="actions-toolbar" role="tablist" aria-label="Acciones de catálogo">
+                            <button type="button" class="action-tab tab-search active" role="tab" aria-selected="true">Consultar</button>
+                            <button type="button" class="action-tab tab-create" role="tab" aria-selected="false">Añadir nuevo</button>
+                            <button type="button" class="action-tab tab-update" role="tab" aria-selected="false">Modificar</button>
+                            <button type="button" class="action-tab tab-delete" role="tab" aria-selected="false">Dar de baja</button>
+                        </div>
+                    </header>
+
+                    <!-- Formulario de gestión -->
+                    <form class="admin-card" id="admin-action-form">
+                        <fieldset class="form-grid">
+                            <legend class="card-subtitle">Criterios de Búsqueda o Registro</legend>
+
+                            <div class="form-field">
+                                <label for="record-id">Referencia / Código del Álbum</label>
+                                <input type="text" id="record-id" class="admin-input" placeholder="Ej: ALB-104 o dejar vacío para ver todos" />
+                            </div>
+
+                            <div class="form-field">
+                                <label for="album-title">Título del Disco</label>
+                                <input type="text" id="album-title" class="admin-input" placeholder="Ej: Skinty Fia" />
+                            </div>
+
+                            <div class="form-field">
+                                <label for="artist-name">Artista o Banda</label>
+                                <input type="text" id="artist-name" class="admin-input" placeholder="Ej: Fontaines D.C." />
+                            </div>
+
+                            <div class="form-field">
+                                <label for="format-type">Formato Predeterminado</label>
+                                <select id="format-type" class="admin-select">
+                                    <option value="">Seleccione formato...</option>
+                                    <option value="vinilo-lp">Vinilo LP (180g)</option>
+                                    <option value="cd">CD Master Audiófilo</option>
+                                    <option value="cassette">Cassette Edición Limitada</option>
+                                </select>
+                            </div>
+                        </fieldset>
+
+                        <div class="action-footer">
+                            <button type="submit" class="btn-execute">
+                                Buscar en Catálogo
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Panel de Resultados -->
+                    <section class="admin-card result-card" aria-label="Resultado de la búsqueda">
+                        <header class="result-header">
+                            <div>
+                                <h4 class="card-subtitle">Resultados Obtenidos</h4>
+                                <span class="result-count">3 registros encontrados</span>
+                            </div>
+                            <span class="status-indicator status-ok" role="status">Sistema conectado</span>
+                        </header>
+
+                        <!-- Tabla limpia de vista previa de resultados -->
+                        <div class="results-table-wrapper">
+                            <table class="results-table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ref.</th>
+                                        <th scope="col">Título</th>
+                                        <th scope="col">Artista</th>
+                                        <th scope="col">Formato</th>
+                                        <th scope="col" class="text-right">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-mono">#01</td>
+                                        <td class="font-bold">Skinty Fia</td>
+                                        <td>Fontaines D.C.</td>
+                                        <td>Vinilo LP</td>
+                                        <td class="text-right">
+                                            <button type="button" class="btn-inline-action">Editar</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-mono">#02</td>
+                                        <td class="font-bold">everything is alive</td>
+                                        <td>Slowdive</td>
+                                        <td>Vinilo LP</td>
+                                        <td class="text-right">
+                                            <button type="button" class="btn-inline-action">Editar</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-mono">#03</td>
+                                        <td class="font-bold">TANGK</td>
+                                        <td>IDLES</td>
+                                        <td>CD Master</td>
+                                        <td class="text-right">
+                                            <button type="button" class="btn-inline-action">Editar</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                </section>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <span class="footer-logo">Palmeras Records</span>
+                <p class="footer-tagline">Sistema interno de administración y catálogo.</p>
+            </div>
+            <div class="footer-direct-info">
+                <span class="info-badge">Sede Central</span>
+                <span class="info-text">Terminal Malasaña, Madrid</span>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p class="footer-copy">&copy; 2026 Palmeras Records. Uso interno exclusivo.</p>
+        </div>
+    </footer>
+
+    <!-- Contenedor flotante de notificaciones -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- Librería Axios y script de administración -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script defer src="../../js/admin.js"></script>
+</body>
+</html>
