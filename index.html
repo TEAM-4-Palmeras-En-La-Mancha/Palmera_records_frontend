@@ -53,13 +53,9 @@
                 </search>
 
                 <div class="toolbar-controls">
+                    <!-- Los géneros se generan dinámicamente desde la base de datos -->
                     <nav class="genre-pills" id="genreFilters" aria-label="Filtrar por género musical">
                         <button type="button" class="genre-pill active" data-genre="all">Todos</button>
-                        <button type="button" class="genre-pill" data-genre="indie">Indie &amp; Shoegaze</button>
-                        <button type="button" class="genre-pill" data-genre="rock">Rock &amp; Punk</button>
-                        <button type="button" class="genre-pill" data-genre="electro">Electrónica &amp; Ambient</button>
-                        <button type="button" class="genre-pill" data-genre="jazz">Jazz &amp; Fusion</button>
-                        <button type="button" class="genre-pill" data-genre="folk">Folk &amp; Raíz</button>
                     </nav>
 
                     <fieldset class="select-controls">
@@ -67,9 +63,6 @@
                             <label for="formatSelector" class="select-label">Formato:</label>
                             <select id="formatSelector" class="filter-select">
                                 <option value="all">Todos los formatos</option>
-                                <option value="vinyl">Vinilo LP</option>
-                                <option value="cd">CD Deluxe</option>
-                                <option value="cassette">Cassette</option>
                             </select>
                         </div>
 
@@ -92,100 +85,9 @@
     <section class="catalog-section" aria-label="Catálogo de discos" id="catalogo">
         <div class="container">
             <div class="catalog-grid" id="catalogGrid">
-
-                <article class="album-card">
-                    <div class="album-cover-wrapper">
-                        <img src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=600&q=80"
-                            alt="Portada de Skinty Fia de Fontaines D.C." class="album-cover" loading="lazy" />
-                        <span class="album-badge">Vinilo LP</span>
-                    </div>
-                    <div class="album-info">
-                        <span class="album-artist">Fontaines D.C.</span>
-                        <h2 class="album-title">Skinty Fia</h2>
-                        <div class="album-meta">
-                            <span>2022</span>
-                            <span class="meta-dot">•</span>
-                            <span>Partisan Records</span>
-                        </div>
-                        <div class="album-footer">
-                            <span class="album-price">26,50 €</span>
-                            <button type="button" class="album-buy-btn" aria-label="Añadir Skinty Fia al carrito">
-                                Añadir
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="album-card">
-                    <div class="album-cover-wrapper">
-                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80"
-                            alt="Portada de Everything Is Alive de Slowdive" class="album-cover" loading="lazy" />
-                        <span class="album-badge">Vinilo LP</span>
-                    </div>
-                    <div class="album-info">
-                        <span class="album-artist">Slowdive</span>
-                        <h2 class="album-title">everything is alive</h2>
-                        <div class="album-meta">
-                            <span>2023</span>
-                            <span class="meta-dot">•</span>
-                            <span>Dead Oceans</span>
-                        </div>
-                        <div class="album-footer">
-                            <span class="album-price">28,00 €</span>
-                            <button type="button" class="album-buy-btn"
-                                aria-label="Añadir everything is alive al carrito">
-                                Añadir
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="album-card">
-                    <div class="album-cover-wrapper">
-                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80"
-                            alt="Portada de TANGK de IDLES" class="album-cover" loading="lazy" />
-                        <span class="album-badge">CD Deluxe</span>
-                    </div>
-                    <div class="album-info">
-                        <span class="album-artist">IDLES</span>
-                        <h2 class="album-title">TANGK</h2>
-                        <div class="album-meta">
-                            <span>2024</span>
-                            <span class="meta-dot">•</span>
-                            <span>Partisan Records</span>
-                        </div>
-                        <div class="album-footer">
-                            <span class="album-price">16,90 €</span>
-                            <button type="button" class="album-buy-btn" aria-label="Añadir TANGK al carrito">
-                                Añadir
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="album-card">
-                    <div class="album-cover-wrapper">
-                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80"
-                            alt="Portada de Space Heavy de King Krule" class="album-cover" loading="lazy" />
-                        <span class="album-badge">Cassette</span>
-                    </div>
-                    <div class="album-info">
-                        <span class="album-artist">King Krule</span>
-                        <h2 class="album-title">Space Heavy</h2>
-                        <div class="album-meta">
-                            <span>2023</span>
-                            <span class="meta-dot">•</span>
-                            <span>Matador</span>
-                        </div>
-                        <div class="album-footer">
-                            <span class="album-price">14,00 €</span>
-                            <button type="button" class="album-buy-btn" aria-label="Añadir Space Heavy al carrito">
-                                Añadir
-                            </button>
-                        </div>
-                    </div>
-                </article>
-
+                <p style="grid-column: 1 / -1; text-align: center; color: var(--color-text-muted); padding: 3rem 0;">
+                    Cargando catálogo musical...
+                </p>
             </div>
         </div>
     </section>

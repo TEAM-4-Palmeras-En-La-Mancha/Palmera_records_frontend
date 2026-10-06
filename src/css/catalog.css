@@ -48,7 +48,7 @@
     transform: scale(1.02);
 }
 
-/* Etiqueta de formato sobre la imagen */
+/* Etiqueta de formato/género sobre la imagen */
 .album-badge {
     position: absolute;
     top: 0.6rem;
@@ -72,21 +72,36 @@
     padding: 1rem;
 }
 
-.album-artist {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--color-accent);
+/* Cabecera estilo Stitch: Título a la izquierda, Precio a la derecha */
+.album-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
     margin-bottom: 0.25rem;
 }
 
-.album-title {
-    font-size: 1.05rem;
+.album-title-row .album-title {
+    font-size: 1.15rem;
     font-weight: 700;
     line-height: 1.25;
     color: var(--color-text-main);
-    margin-bottom: 0.4rem;
+    margin: 0;
+}
+
+.album-title-row .album-price {
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-text-main);
+    white-space: nowrap;
+}
+
+.album-artist {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-accent, #2563eb);
+    margin-bottom: 0.25rem;
 }
 
 .album-meta {
@@ -95,40 +110,70 @@
     gap: 0.35rem;
     font-size: 0.8rem;
     color: var(--color-text-muted);
-    margin-bottom: 1.25rem;
 }
 
 .meta-dot {
     font-size: 0.6rem;
 }
 
-/* Pie de la tarjeta (precio y botón) */
-.album-footer {
-    margin-top: auto;
+/* ==========================================================================
+    BARRA DE FILTROS Y CONTROLES SUPERIORES
+   ========================================================================== */
+
+.toolbar-controls {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: nowrap; 
+}
+
+.genre-pills {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.genre-pill {
+    white-space: nowrap; 
+}
+
+.select-controls {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--color-surface-soft);
+    gap: 0.75rem;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 
-.album-price {
-    font-size: 1.05rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--color-text-main);
+/* ==========================================================================
+    BARRA DE BÚSQUEDA A ANCHO COMPLETO
+   ========================================================================== */
+
+/* Asegura que el formulario ocupe el 100% del contenedor y apile los bloques */
+.toolbar-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    width: 100%;
 }
 
-.album-buy-btn {
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 0.4rem 0.85rem;
-    background-color: var(--color-primary);
-    color: var(--color-primary-text);
-    border-radius: var(--radius-sm);
-    transition: background-color var(--transition);
+/* Expande la caja de búsqueda eliminando cualquier tope de ancho previo */
+.search-box {
+    width: 100%;
+    max-width: 100%; /* Quita cualquier límite fijo como 350px o 400px */
+    display: flex;
+    align-items: center;
+    position: relative;
 }
 
-.album-buy-btn:hover {
-    background-color: var(--color-primary-hover);
+/* El campo de texto llena todo el espacio horizontal disponible */
+.search-input {
+    width: 100%;
+    flex: 1;
 }
