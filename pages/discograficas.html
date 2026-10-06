@@ -44,14 +44,11 @@
                 <search class="label-search">
                     <span class="material-symbols-outlined label-search__icon">search</span>
                     <input type="search" id="labelSearch" class="label-search__input"
-                        placeholder="Buscar por sello, ciudad o género musical..." autocomplete="off" />
+                        placeholder="Buscar por sello o país..." autocomplete="off" />
                 </search>
 
-                <nav class="territory-filters" aria-label="Filtrar por territorio">
-                    <button type="button" class="territory-pill active" data-territory="all">Todos los territorios</button>
-                    <button type="button" class="territory-pill" data-territory="España">España</button>
-                    <button type="button" class="territory-pill" data-territory="Reino Unido">Reino Unido</button>
-                    <button type="button" class="territory-pill" data-territory="Alemania">Alemania</button>
+                <nav class="territory-filters" id="countryFilters" aria-label="Filtrar por país">
+                    <button type="button" class="territory-pill active" data-country="all">Todos los países</button>
                 </nav>
 
             </form>
@@ -60,73 +57,7 @@
 
     <section class="label-featured" aria-label="Sellos discográficos">
         <div class="container" id="labelsList">
-
-            <header class="label-featured__header">
-                <div class="label-featured__info">
-                    <div class="label-featured__title-row">
-                        <h2 class="label-featured__name">Discos Paradiso</h2>
-                        <span class="label-featured__badge">Destacado</span>
-                    </div>
-                    <p class="label-featured__location">
-                        <span class="material-symbols-outlined">location_on</span>
-                        Barcelona, España — Especializado en ambient, electrónica experimental y reediciones ibéricas.
-                    </p>
-                </div>
-            </header>
-
-            <div class="label-table" aria-label="Lanzamientos de Discos Paradiso">
-
-                <div class="label-table__head">
-                    <span>Portada</span>
-                    <span>Álbum</span>
-                    <span>Artista</span>
-                    <span>Año</span>
-                    <span>Formatos</span>
-                </div>
-
-                <article class="label-table__row">
-                    <div class="label-table__cover">
-                        <img src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=200&q=80"
-                            alt="Portada de Ecos de la Maresme" loading="lazy" />
-                    </div>
-                    <h3 class="label-table__album">Ecos de la Maresme</h3>
-                    <span class="label-table__artist">Marc Verdaguer</span>
-                    <span class="label-table__year">2023</span>
-                    <div class="label-table__formats">
-                        <span class="format-tag">Vinilo 12"</span>
-                        <span class="format-tag">Casete</span>
-                    </div>
-                </article>
-
-                <article class="label-table__row">
-                    <div class="label-table__cover">
-                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=200&q=80"
-                            alt="Portada de Mediterráneo Modular" loading="lazy" />
-                    </div>
-                    <h3 class="label-table__album">Mediterráneo Modular</h3>
-                    <span class="label-table__artist">Silvia Pérez &amp; K. Grau</span>
-                    <span class="label-table__year">2022</span>
-                    <div class="label-table__formats">
-                        <span class="format-tag">2xLP 180g</span>
-                        <span class="format-tag">Digital FLAC</span>
-                    </div>
-                </article>
-
-                <article class="label-table__row">
-                    <div class="label-table__cover">
-                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=200&q=80"
-                            alt="Portada de Geometría del Ritmo" loading="lazy" />
-                    </div>
-                    <h3 class="label-table__album">Geometría del Ritmo</h3>
-                    <span class="label-table__artist">Conjunto Ondas</span>
-                    <span class="label-table__year">2021</span>
-                    <div class="label-table__formats">
-                        <span class="format-tag">Vinilo 12"</span>
-                    </div>
-                </article>
-
-            </div>
-
+            <p class="label-loading" role="status">Cargando sellos discográficos…</p>
         </div>
     </section>
 
