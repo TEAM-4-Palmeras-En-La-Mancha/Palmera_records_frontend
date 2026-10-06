@@ -11,6 +11,7 @@ export class MainHeader extends HTMLElement {
         const isInPages = window.location.pathname.includes('/pages/');
         const rootPath = isInPages ? '../' : './';
         const filialesPath = isInPages ? 'filiales.html' : 'pages/filiales.html';
+        const discograficasPath = isInPages ? 'discograficas.html' : 'pages/discograficas.html';
 
         this.innerHTML = `
             <header id="main-header">
@@ -25,16 +26,10 @@ export class MainHeader extends HTMLElement {
                     <nav class="header-nav" aria-label="Navegación principal">
                         <a href="${rootPath}index.html#catalogo" class="nav-link">Catálogo</a>
                         <a href="${rootPath}index.html#artistas" class="nav-link">Artistas</a>
-                        <a href="${rootPath}index.html#discograficas" class="nav-link">Discográficas</a>
+                        <a href="${rootPath}${discograficasPath}" class="nav-link">Discográficas</a>
                         <a href="${rootPath}${filialesPath}" class="nav-link">Filiales y Stock</a>
                     </nav>
 
-                    <div class="header-actions">
-                        <button class="cart-btn" id="headerCartBtn" aria-label="Ver carrito">
-                            <span class="material-symbols-outlined" style="font-size: 1.2rem; vertical-align: middle;">shopping_bag</span>
-                            <span class="cart-label" id="cartLabel">Carrito (${this._cartCount})</span>
-                        </button>
-                    </div>
                 </div>
             </header>
         `;
