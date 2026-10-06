@@ -1,0 +1,353 @@
+/* --------------------------------------------------------------------------
+   DISCOGRÁFICAS — replica maqueta "Sellos Discográficos"
+   -------------------------------------------------------------------------- */
+
+/* Hero: misma tipografía Inter que index.html (hero.css) */
+.catalog-hero .hero-eyebrow {
+    color: #52525b;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+}
+
+.catalog-hero .hero-title {
+    font-family: var(--font-family);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+}
+
+.catalog-hero .hero-description {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    max-width: 720px;
+}
+
+/* --------------------------------------------------------------------------
+   TOOLBAR: BÚSQUEDA + FILTROS POR TERRITORIO
+   -------------------------------------------------------------------------- */
+.label-toolbar {
+    padding: 0 0 2rem;
+}
+
+.label-toolbar__form {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 0.6rem 0.7rem;
+    background-color: #f4f1fa;
+    border-radius: 8px;
+}
+
+/* Buscador */
+.label-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1 1 340px;
+    min-width: 0;
+}
+
+.label-search__icon {
+    position: absolute;
+    left: 0.85rem;
+    font-size: 1.1rem;
+    color: #71717a;
+    pointer-events: none;
+}
+
+.label-search__input {
+    width: 100%;
+    padding: 0.65rem 1rem 0.65rem 2.4rem;
+    background-color: #ffffff;
+    border: 1px solid #e4e4e7;
+    border-radius: 6px;
+    font-size: 0.83rem;
+    color: #18181b;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.label-search__input::placeholder {
+    color: #71717a;
+}
+
+.label-search__input:focus {
+    outline: none;
+    border-color: #18181b;
+    box-shadow: 0 0 0 3px rgba(24, 24, 27, 0.06);
+}
+
+/* Filtros por territorio */
+.territory-filters {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.territory-pill {
+    padding: 0.55rem 0.9rem;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #52525b;
+    background-color: #ffffff;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.territory-pill:hover {
+    background-color: #ebe8f5;
+}
+
+.territory-pill.active {
+    background-color: #111114;
+    color: #ffffff;
+    border-color: #111114;
+}
+
+/* --------------------------------------------------------------------------
+   SELLO DESTACADO
+   -------------------------------------------------------------------------- */
+.label-featured {
+    padding: 0.75rem 0 5rem;
+}
+
+.label-featured__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+}
+
+.label-featured__title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.35rem;
+}
+
+.label-featured__name {
+    font-family: var(--font-family);
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #18181b;
+}
+
+.label-featured__badge {
+    display: inline-block;
+    padding: 0.22rem 0.5rem;
+    font-family: var(--font-family);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #b45309;
+    background-color: #fdeeda;
+    border-radius: 4px;
+}
+
+.label-featured__location {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    color: #71717a;
+}
+
+.label-featured__location .material-symbols-outlined {
+    font-size: 0.95rem;
+    color: #71717a;
+}
+
+/* --------------------------------------------------------------------------
+   TABLA DE LANZAMIENTOS — sin caja exterior, como la maqueta
+   -------------------------------------------------------------------------- */
+.label-table {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+}
+
+/* Cabecera lila */
+.label-table__head {
+    display: grid;
+    grid-template-columns: 56px 1.5fr 1.1fr 0.45fr 1.4fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.65rem 1.25rem;
+    background-color: #f4f1fa;
+    border-radius: 6px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #71717a;
+}
+
+/* Fila */
+.label-table__row {
+    display: grid;
+    grid-template-columns: 56px 1.5fr 1.1fr 0.45fr 1.4fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #ececf0;
+    background-color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+.label-table__row:last-child {
+    border-bottom: none;
+}
+
+.label-table__row:hover {
+    background-color: #faf9fd;
+}
+
+/* Portada pequeña como en mockup */
+.label-table__cover {
+    width: 42px;
+    height: 42px;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #f4f4f5;
+    border: 1px solid #e4e4e7;
+}
+
+.label-table__cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Textos */
+.label-table__album {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #18181b;
+}
+
+.label-table__artist {
+    font-size: 0.83rem;
+    color: #71717a;
+}
+
+.label-table__year {
+    font-size: 0.83rem;
+    color: #71717a;
+}
+
+/* Etiquetas de formato lila claro */
+.label-table__formats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.format-tag {
+    display: inline-block;
+    padding: 0.25rem 0.55rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: #50506a;
+    background-color: #efecf7;
+    border: none;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+
+/* Bloques generados por JS (uno por sello) */
+.label-block {
+    margin-bottom: 3rem;
+}
+
+.label-block:last-child {
+    margin-bottom: 0;
+}
+
+.label-empty {
+    padding: 1rem 1.25rem;
+    font-size: 0.83rem;
+    color: #71717a;
+    background-color: #fff;
+}
+
+.label-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: #71717a;
+    font-size: 0.88rem;
+    background-color: #fff;
+    border: 1px dashed #e4e4e7;
+    border-radius: 8px;
+}
+
+.label-empty-state .material-symbols-outlined {
+    font-size: 2rem;
+    color: #a1a1aa;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+    .label-table {
+        overflow-x: auto;
+    }
+
+    .label-table__head,
+    .label-table__row {
+        min-width: 680px;
+    }
+
+    /* El scroll interno necesita el fondo blanco por fila */
+    .label-table__row {
+        background-color: #fff;
+    }
+}
+
+@media (max-width: 640px) {
+    .label-toolbar__form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .territory-filters {
+        justify-content: flex-start;
+    }
+
+    .label-featured__header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .label-featured__name {
+        font-size: 1.2rem;
+    }
+
+    .catalog-hero .hero-title {
+        font-size: 1.7rem;
+    }
+
+    .label-featured {
+        padding-bottom: 3.5rem;
+    }
+}
