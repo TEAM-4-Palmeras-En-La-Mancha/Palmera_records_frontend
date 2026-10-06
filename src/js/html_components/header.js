@@ -11,6 +11,7 @@ export class MainHeader extends HTMLElement {
         const isInPages = window.location.pathname.includes('/pages/');
         const rootPath = isInPages ? '../' : './';
         const filialesPath = isInPages ? 'filiales.html' : 'pages/filiales.html';
+        const artistsPath = isInPages ? 'artistas.html' : 'pages/artistas.html';
 
         this.innerHTML = `
             <header id="main-header">
@@ -24,7 +25,7 @@ export class MainHeader extends HTMLElement {
 
                     <nav class="header-nav" aria-label="Navegación principal">
                         <a href="${rootPath}index.html#catalogo" class="nav-link">Catálogo</a>
-                        <a href="${rootPath}index.html#artistas" class="nav-link">Artistas</a>
+                        <a href="${rootPath}${artistsPath}" class="nav-link">Artistas</a>
                         <a href="${rootPath}index.html#discograficas" class="nav-link">Discográficas</a>
                         <a href="${rootPath}${filialesPath}" class="nav-link">Filiales y Stock</a>
                     </nav>
@@ -73,15 +74,19 @@ export class MainHeader extends HTMLElement {
         navLinks.forEach(link => {
             const href = link.getAttribute('href');
 
-            // 1. Si estamos en filiales.html
-            if (currentPath.includes('filiales.html') && href.includes('filiales.html')) {
+            // 1. Si estamos en artistas.html
+            if (currentPath.includes('artistas.html') && href.includes('artistas.html')) {
                 link.classList.add('active');
             }
-            // 2. Si estamos en una sección con ancla (#catalogo, #artistas, etc.)
+            // 2. Si estamos en filiales.html
+            else if (currentPath.includes('filiales.html') && href.includes('filiales.html')) {
+                link.classList.add('active');
+            }
+            // 3. Si estamos en una sección con ancla (#catalogo, #artistas, etc.)
             else if (currentHash && href.endsWith(currentHash)) {
                 link.classList.add('active');
             }
-            // 3. Si estamos en la portada (index.html o raíz) y no hay hash, activa Catálogo por defecto
+            // 4. Si estamos en la portada (index.html o raíz) y no hay hash, activa Catálogo por defecto
             else if (!currentHash && (currentPath.endsWith('/') || currentPath.endsWith('index.html')) && href.includes('#catalogo')) {
                 link.classList.add('active');
             }

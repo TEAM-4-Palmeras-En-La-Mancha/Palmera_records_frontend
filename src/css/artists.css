@@ -1,0 +1,205 @@
+/* ==========================================================================
+    PÁGINA DE ARTISTAS — adaptado a los tokens de styles.css
+   ========================================================================== */
+.artists-section {
+    padding-bottom: 4rem;
+}
+
+.artist-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+    padding-bottom: 4rem;
+}
+
+.artist-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    background-color: var(--color-surface-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+@media (min-width: 768px) {
+    .artist-card { padding: 3.5rem; }
+}
+
+.artist-card__head {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    align-items: start;
+}
+
+@media (min-width: 768px) {
+    .artist-card__head { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .artist-card__info { grid-column: span 8; }
+    .artist-card__count { grid-column: span 4; justify-content: flex-end; }
+}
+
+.artist-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.artist-card__name {
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--color-text-main);
+}
+
+.artist-card__bio {
+    max-width: 42rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+}
+
+.artist-card__count { display: flex; }
+
+.works-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--color-surface);
+    color: var(--color-text-main);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.works-badge__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: var(--radius-full);
+    background-color: var(--color-accent);
+}
+
+.works-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-top: 1.25rem;
+}
+
+@media (min-width: 768px) {
+    .works-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.work-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.25rem;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: border-color var(--transition), transform var(--transition);
+}
+
+.work-card:hover {
+    border-color: var(--color-border-hover);
+    transform: translateY(-2px);
+}
+
+.work-card__top {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.work-card__cover {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-surface-soft);
+}
+
+.work-card__cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition);
+}
+
+.work-card:hover .work-card__cover img { transform: scale(1.03); }
+
+.work-card__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.work-card__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.work-card__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--color-text-main);
+}
+
+.work-card__price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    white-space: nowrap;
+}
+
+.work-card__meta {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+}
+
+.work-card__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+    padding-top: 0.5rem;
+}
+
+.format-picker {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.format-chip {
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    background-color: var(--color-surface-soft);
+    color: var(--color-text-main);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color var(--transition), color var(--transition);
+}
+
+.format-chip:hover { background-color: var(--color-border); }
+
+.format-chip.is-selected,
+.format-chip.is-selected:hover {
+    background-color: var(--color-primary);
+    color: var(--color-primary-text);
+}
+
+.artists-empty {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--color-text-muted);
+}
