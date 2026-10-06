@@ -3,11 +3,38 @@
 // ==========================================================================
 const api = axios.create({
     baseURL: 'http://127.0.0.1:8000',
-    timeout: 5000,
-    headers: {
-        'Content-Type': 'application/json'
-    }
+    timeout: 10000
 });
+
+// Interceptor: deja libre Content-Type si es FormData (para que el navegador
+// configure el multipart/boundary con el archivo adjunto) y JSON en el resto.
+api.interceptors.request.use((config) => {
+    if (config.data instanceof FormData) {
+        delete config.headers['Content-Type'];
+    } else if (!config.headers['Content-Type']) {
+        config.headers['Content-Type'] = 'application/json';
+    }
+    return config;
+});
+
+let cachedLabels = [];
+let cachedGenres = [];
+let cachedArtists = [];
+
+async function loadDropdownData() {
+    try {
+        const [labelsRes, genresRes, artistsRes] = await Promise.allSettled([
+            api.get('/record-labels/'),
+            api.get('/genres/'),
+            api.get('/artists/')
+        ]);
+        if (labelsRes.status === 'fulfilled') cachedLabels = labelsRes.value.data || [];
+        if (genresRes.status === 'fulfilled') cachedGenres = genresRes.value.data || [];
+        if (artistsRes.status === 'fulfilled') cachedArtists = artistsRes.value.data || [];
+    } catch (err) {
+        console.error('Error al precargar sellos, géneros o artistas:', err);
+    }
+}
 
 function showNotification(message, type = 'success') {
     const container = document.getElementById('toast-container');
@@ -43,56 +70,141 @@ const ENTITIES = {
     albums: {
         title: 'Gestión de Álbumes',
         endpoint: '/albums',
-        columns: ['Ref.', 'Título', 'Año', 'Género', 'Sello (ID)'],
-        renderRow: (a) => `
-            <td class="font-mono">#${a.id}</td>
-            <td class="font-bold">${escapeHtml(a.title)}</td>
-            <td>${escapeHtml(a.release_year)}</td>
-            <td><span class="badge">${escapeHtml(a.genre)}</span></td>
-            <td class="font-mono">#${escapeHtml(a.label_id)}</td>
-        `,
-        getFields: (data = {}) => `
-            <div class="form-field">
-                <label for="f-title">Título del Álbum *</label>
-                <input type="text" id="f-title" class="admin-input" value="${escapeHtml(data.title || '')}" placeholder="Ej: Skinty Fia" required />
-            </div>
-            <div class="form-field">
-                <label for="f-release_year">Año de Lanzamiento *</label>
-                <input type="number" id="f-release_year" class="admin-input" value="${escapeHtml(data.release_year || '')}" placeholder="Ej: 2022" required />
-            </div>
-            <div class="form-field">
-                <label for="f-genre">Género Musical *</label>
-                <select id="f-genre" class="admin-select" required>
-                    <option value="rock" ${data.genre === 'rock' ? 'selected' : ''}>Rock</option>
-                    <option value="pop" ${data.genre === 'pop' ? 'selected' : ''}>Pop</option>
-                    <option value="jazz" ${data.genre === 'jazz' ? 'selected' : ''}>Jazz</option>
-                </select>
-            </div>
-            <div class="form-field">
-                <label for="f-label_id">ID de Discográfica *</label>
-                <input type="number" id="f-label_id" class="admin-input" value="${escapeHtml(data.label_id || '')}" placeholder="Ej: 1" required />
-            </div>
-            <div class="form-field full-width">
-                <label for="f-cover-file">Portada del Disco</label>
-                <div class="file-upload-zone">
-                    <div class="cover-preview-box" id="cover-preview-box">
-                        ${data.cover_image_url
-                            ? `<img src="${escapeHtml(data.cover_image_url)}" alt="Portada actual" />`
-                            : '<span>Sin carátula</span>'}
-                    </div>
-                    <input type="file" id="f-cover-file" class="admin-input" accept="image/*" />
+        columns: ['Ref.', 'Portada', 'Título', 'Artista', 'Año', 'Género', 'Sello (ID)'],
+        renderRow: (a) => {
+            // Lee los artistas del objeto anidado o resuelve por IDs
+            let artistDisplay = 'Sin artista';
+            if (a.artists && a.artists.length > 0) {
+                artistDisplay = a.artists.map(art => escapeHtml(art.name)).join(', ');
+            } else if (a.artist_ids && a.artist_ids.length > 0) {
+                artistDisplay = a.artist_ids.map(id => {
+                    const match = cachedArtists.find(art => art.id === id);
+                    return match ? escapeHtml(match.name) : `#${id}`;
+                }).join(', ');
+            }
+
+            // Lee los géneros del objeto anidado o resuelve por IDs
+            let genreDisplay = 'Sin género';
+            if (a.genres && a.genres.length > 0) {
+                genreDisplay = a.genres.map(g => escapeHtml(g.name)).join(', ');
+            } else if (a.genre_ids && a.genre_ids.length > 0) {
+                genreDisplay = a.genre_ids.map(id => {
+                    const match = cachedGenres.find(g => g.id === id);
+                    return match ? escapeHtml(match.name) : `#${id}`;
+                }).join(', ');
+            }
+
+            const coverThumb = a.cover_image_url
+                ? `<img src="${escapeHtml(a.cover_image_url)}" alt="Portada" style="width: 38px; height: 38px; object-fit: cover; border-radius: 4px;" />`
+                : '<span style="color: var(--color-text-muted); font-size: 0.75rem;">Sin img</span>';
+
+            return `
+                <td class="font-mono">#${a.id}</td>
+                <td>${coverThumb}</td>
+                <td class="font-bold">${escapeHtml(a.title)}</td>
+                <td>${artistDisplay}</td>
+                <td>${escapeHtml(a.release_year)}</td>
+                <td><span class="badge">${genreDisplay}</span></td>
+                <td class="font-mono">#${escapeHtml(a.label_id)}</td>
+            `;
+        },
+        getFields: (data = {}) => {
+            const currentLabelId = data.label_id || '';
+            const currentArtistId = (data.artists && data.artists.length > 0)
+                ? data.artists[0].id
+                : (data.artist_ids && data.artist_ids.length > 0 ? data.artist_ids[0] : '');
+            const currentGenreId = (data.genres && data.genres.length > 0)
+                ? data.genres[0].id
+                : (data.genre_ids && data.genre_ids.length > 0 ? data.genre_ids[0] : '');
+
+            const labelOptions = cachedLabels.length > 0
+                ? cachedLabels.map(lbl => `
+                    <option value="${lbl.id}" ${lbl.id === currentLabelId ? 'selected' : ''}>
+                        ${escapeHtml(lbl.name)} (${escapeHtml(lbl.country)})
+                    </option>
+                `).join('')
+                : '<option value="">No hay discográficas registradas</option>';
+
+            const genreOptions = cachedGenres.length > 0
+                ? cachedGenres.map(g => `
+                    <option value="${g.id}" ${g.id === currentGenreId ? 'selected' : ''}>
+                        ${escapeHtml(g.name)}
+                    </option>
+                `).join('')
+                : '<option value="1">1 - General</option>';
+
+            const artistOptions = cachedArtists.length > 0
+                ? cachedArtists.map(art => `
+                    <option value="${art.id}" ${art.id === currentArtistId ? 'selected' : ''}>
+                        ${escapeHtml(art.name)}
+                    </option>
+                `).join('')
+                : '<option value="">No hay artistas registrados</option>';
+
+            return `
+                <div class="form-field">
+                    <label for="f-title">Título del Álbum *</label>
+                    <input type="text" id="f-title" class="admin-input" value="${escapeHtml(data.title || '')}" placeholder="Ej: Skinty Fia" required />
                 </div>
-            </div>
-        `,
+                <div class="form-field">
+                    <label for="f-release_year">Año de Lanzamiento *</label>
+                    <input type="number" id="f-release_year" class="admin-input" value="${escapeHtml(data.release_year || '')}" placeholder="Ej: 2022" required />
+                </div>
+                <div class="form-field">
+                    <label for="f-artist_ids">Artista o Banda Principal *</label>
+                    <select id="f-artist_ids" class="admin-select" required>
+                        <option value="">Seleccione artista...</option>
+                        ${artistOptions}
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="f-genre_ids">Género Musical *</label>
+                    <select id="f-genre_ids" class="admin-select" required>
+                        <option value="">Seleccione un género...</option>
+                        ${genreOptions}
+                    </select>
+                </div>
+                <div class="form-field full-width">
+                    <label for="f-label_id">Discográfica / Sello *</label>
+                    <select id="f-label_id" class="admin-select" required>
+                        <option value="">Seleccione discográfica...</option>
+                        ${labelOptions}
+                    </select>
+                </div>
+                <div class="form-field full-width">
+                    <label for="f-cover-file">Portada del Disco (Archivo de Imagen)</label>
+                    <div class="file-upload-zone">
+                        <div class="cover-preview-box" id="cover-preview-box">
+                            ${data.cover_image_url
+                                ? `<img src="${escapeHtml(data.cover_image_url)}" alt="Portada actual" />`
+                                : '<span>Sin carátula</span>'}
+                        </div>
+                        <input type="file" id="f-cover-file" class="admin-input" accept="image/*" />
+                    </div>
+                </div>
+            `;
+        },
         getPayload: () => {
+            const formData = new FormData();
+            formData.append('title', document.getElementById('f-title').value.trim());
+            formData.append('release_year', document.getElementById('f-release_year').value);
+            formData.append('label_id', document.getElementById('f-label_id').value);
+
+            const artistId = document.getElementById('f-artist_ids').value;
+            if (artistId) {
+                formData.append('artist_ids', artistId);
+            }
+
+            const genreId = document.getElementById('f-genre_ids').value;
+            if (genreId) {
+                formData.append('genre_ids', genreId);
+            }
+
             const fileInput = document.getElementById('f-cover-file');
-            return {
-                title: document.getElementById('f-title').value.trim(),
-                release_year: parseInt(document.getElementById('f-release_year').value, 10),
-                genre: document.getElementById('f-genre').value,
-                label_id: parseInt(document.getElementById('f-label_id').value, 10),
-                cover_image_url: fileInput?.files?.[0] ? fileInput.files[0].name : (editingItem?.cover_image_url || null)
-            };
+            if (fileInput && fileInput.files.length > 0) {
+                formData.append('cover_image', fileInput.files[0]);
+            }
+            return formData;
         }
     },
 
@@ -478,12 +590,19 @@ async function createRecord(payload) {
         setStatus('loading', 'Guardando...');
         await api.post(`${config.endpoint}/`, payload);
         showNotification('Registro creado correctamente');
+        if (currentEntity === 'record_labels' || currentEntity === 'artists') {
+            await loadDropdownData();
+        }
         switchAction('search');
         fetchRecords();
     } catch (error) {
         console.error(error);
         setStatus('error', 'Error al guardar');
-        showNotification('No se pudo crear el registro', 'error');
+        const detailMsg = error.response?.data?.detail;
+        const msg = typeof detailMsg === 'string'
+            ? detailMsg
+            : (Array.isArray(detailMsg) ? detailMsg[0]?.msg : 'No se pudo crear el registro');
+        showNotification(msg, 'error');
     }
 }
 
@@ -500,12 +619,19 @@ async function updateRecord(payload) {
         await api.put(url, payload);
         showNotification('Registro actualizado correctamente');
         editingItem = null;
+        if (currentEntity === 'record_labels' || currentEntity === 'artists') {
+            await loadDropdownData();
+        }
         switchAction('search');
         fetchRecords();
     } catch (error) {
         console.error(error);
         setStatus('error', 'Error al actualizar');
-        showNotification('No se pudo actualizar el registro', 'error');
+        const detailMsg = error.response?.data?.detail;
+        const msg = typeof detailMsg === 'string'
+            ? detailMsg
+            : (Array.isArray(detailMsg) ? detailMsg[0]?.msg : 'No se pudo actualizar el registro');
+        showNotification(msg, 'error');
     }
 }
 
@@ -515,6 +641,9 @@ async function deleteRecord(id) {
         setStatus('loading', 'Eliminando...');
         await api.delete(`${config.endpoint}/${id}`);
         showNotification(`Registro #${id} eliminado`);
+        if (currentEntity === 'record_labels' || currentEntity === 'artists') {
+            await loadDropdownData();
+        }
         if (currentAction === 'delete') switchAction('search');
         fetchRecords();
     } catch (error) {
@@ -588,7 +717,9 @@ if (formEl) {
 // ==========================================================================
 // INICIALIZACIÓN
 // ==========================================================================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadDropdownData();
+
     const tabs = document.querySelectorAll('.action-tab');
     const actionKeys = ['search', 'create', 'update', 'delete'];
     tabs.forEach((tab, index) => {
@@ -603,7 +734,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const entityButtons = document.querySelectorAll('.entity-btn');
     entityButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', async () => {
             const entity = btn.dataset.entity;
             if (!ENTITIES[entity]) return;
 
@@ -612,6 +743,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             currentEntity = entity;
             editingItem = null;
+
+            if (currentEntity === 'albums') {
+                await loadDropdownData();
+            }
+
             switchAction('search');
             fetchRecords();
         });
