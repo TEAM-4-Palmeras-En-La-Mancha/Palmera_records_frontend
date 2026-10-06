@@ -142,19 +142,6 @@
     color: #18181b;
 }
 
-.label-featured__badge {
-    display: inline-block;
-    padding: 0.22rem 0.5rem;
-    font-family: var(--font-family);
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #b45309;
-    background-color: #fdeeda;
-    border-radius: 4px;
-}
-
 .label-featured__location {
     display: flex;
     align-items: center;
@@ -182,7 +169,7 @@
 /* Cabecera lila */
 .label-table__head {
     display: grid;
-    grid-template-columns: 56px 1.5fr 1.1fr 0.45fr 1.4fr;
+    grid-template-columns: 56px 1.6fr 1.2fr 0.5fr;
     align-items: center;
     gap: 1rem;
     padding: 0.65rem 1.25rem;
@@ -198,7 +185,7 @@
 /* Fila */
 .label-table__row {
     display: grid;
-    grid-template-columns: 56px 1.5fr 1.1fr 0.45fr 1.4fr;
+    grid-template-columns: 56px 1.6fr 1.2fr 0.5fr;
     align-items: center;
     gap: 1rem;
     padding: 1rem 1.25rem;
@@ -231,6 +218,17 @@
     object-fit: cover;
 }
 
+.label-table__cover--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a1a1aa;
+}
+
+.label-table__cover--empty .material-symbols-outlined {
+    font-size: 1.4rem;
+}
+
 /* Textos */
 .label-table__album {
     font-size: 0.85rem;
@@ -249,27 +247,6 @@
     color: #71717a;
 }
 
-/* Etiquetas de formato lila claro */
-.label-table__formats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-}
-
-.format-tag {
-    display: inline-block;
-    padding: 0.25rem 0.55rem;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    color: #50506a;
-    background-color: #efecf7;
-    border: none;
-    border-radius: 4px;
-    white-space: nowrap;
-}
-
-
 /* Bloques generados por JS (uno por sello) */
 .label-block {
     margin-bottom: 3rem;
@@ -277,6 +254,13 @@
 
 .label-block:last-child {
     margin-bottom: 0;
+}
+
+.label-loading {
+    padding: 2.5rem 1rem;
+    text-align: center;
+    font-size: 0.88rem;
+    color: #71717a;
 }
 
 .label-empty {
@@ -315,7 +299,7 @@
 
     .label-table__head,
     .label-table__row {
-        min-width: 680px;
+        min-width: 560px;
     }
 
     /* El scroll interno necesita el fondo blanco por fila */
