@@ -25,9 +25,9 @@ export class MainHeader extends HTMLElement {
 
                     <nav class="header-nav" aria-label="Navegación principal">
                         <a href="${rootPath}index.html#catalogo" class="nav-link">Catálogo</a>
-                        <a href="${rootPath}${artistsPath}" class="nav-link">Artistas</a>
+                        <a href="${artistsPath}" class="nav-link">Artistas</a>
                         <a href="${rootPath}index.html#discograficas" class="nav-link">Discográficas</a>
-                        <a href="${rootPath}${filialesPath}" class="nav-link">Filiales y Stock</a>
+                        <a href="${filialesPath}" class="nav-link">Filiales y Stock</a>
                     </nav>
 
                     <div class="header-actions">
