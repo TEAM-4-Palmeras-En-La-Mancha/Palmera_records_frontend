@@ -34,7 +34,7 @@
                     <span class="hero-eyebrow">Red de Tiendas &amp; Logística</span>
                     <h1 class="hero-title">Filiales y Disponibilidad de Stock</h1>
                     <p class="hero-description">
-                        Consulte la localización de nuestros tres espacios físicos de escucha y compra, así como el inventario centralizado en tiempo real de nuestras colecciones y prensajes limitados.
+                        Consulte la localización de nuestros espacios físicos de escucha y compra, así como el inventario centralizado en tiempo real de nuestras colecciones y prensajes limitados.
                     </p>
                 </div>
             </div>
@@ -47,94 +47,11 @@
                     <h2 class="section-title">Nuestras Tiendas Físicas</h2>
                 </div>
 
-                <div class="branches-grid">
-                    
-                    <!-- Sede 1: Madrid -->
-                    <article class="branch-card">
-                        <div class="branch-header">
-                            <span class="branch-tag">Sede Central</span>
-                            <h3 class="branch-city">Madrid — Malasaña</h3>
-                            <address class="branch-address">
-                                Calle de la Palma 42<br />
-                                28004 Madrid, España<br />
-                                <a href="tel:+34915218840" class="branch-phone">+34 91 521 88 40</a>
-                            </address>
-
-                            <!-- Mapa embebido Madrid -->
-                            <div class="branch-map-wrapper">
-                                <iframe
-                                    class="branch-map-frame"
-                                    title="Mapa Sede Madrid"
-                                    loading="lazy"
-                                    src="https://maps.google.com/maps?q=Calle%20de%20la%20Palma%2042,%20Madrid&t=&z=15&ie=UTF8&iwloc=&output=embed">
-                                </iframe>
-                            </div>
-                        </div>
-
-                        <div class="branch-hours">
-                            <span class="hours-label">Horario de apertura:</span>
-                            <p>Lun a Sáb: 10:30 — 20:30</p>
-                            <p>Dom: 11:00 — 15:00</p>
-                        </div>
-                    </article>
-
-                    <!-- Sede 2: Toledo -->
-                    <article class="branch-card">
-                        <div class="branch-header">
-                            <span class="branch-tag">Espacio Histórico</span>
-                            <h3 class="branch-city">Toledo — Casco Histórico</h3>
-                            <address class="branch-address">
-                                Calle Santo Tomé 14<br />
-                                45002 Toledo, España<br />
-                                <a href="tel:+34925256119" class="branch-phone">+34 925 25 61 19</a>
-                            </address>
-
-                            <!-- Mapa embebido Toledo -->
-                            <div class="branch-map-wrapper">
-                                <iframe
-                                    class="branch-map-frame"
-                                    title="Mapa Sede Toledo"
-                                    loading="lazy"
-                                    src="https://maps.google.com/maps?q=Calle%20Santo%20Tom%C3%A9%2014,%20Toledo&t=&z=15&ie=UTF8&iwloc=&output=embed">
-                                </iframe>
-                            </div>
-                        </div>
-
-                        <div class="branch-hours">
-                            <span class="hours-label">Horario de apertura:</span>
-                            <p>Mar a Sáb: 11:00 — 20:00</p>
-                            <p>Dom y Lun: Cerrado</p>
-                        </div>
-                    </article>
-
-                    <!-- Sede 3: Oviedo -->
-                    <article class="branch-card">
-                        <div class="branch-header">
-                            <span class="branch-tag">Galería Norte</span>
-                            <h3 class="branch-city">Oviedo — Centro</h3>
-                            <address class="branch-address">
-                                Calle Fruela 9<br />
-                                33007 Oviedo, Asturias<br />
-                                <a href="tel:+34985207433" class="branch-phone">+34 985 20 74 33</a>
-                            </address>
-
-                            <!-- Mapa embebido Oviedo -->
-                            <div class="branch-map-wrapper">
-                                <iframe
-                                    class="branch-map-frame"
-                                    title="Mapa Sede Oviedo"
-                                    loading="lazy"
-                                    src="https://maps.google.com/maps?q=Calle%20Fruela%209,%20Oviedo&t=&z=15&ie=UTF8&iwloc=&output=embed">
-                                </iframe>
-                            </div>
-                        </div>
-
-                        <div class="branch-hours">
-                            <span class="hours-label">Horario de apertura:</span>
-                            <p>Lun a Vie: 10:00 — 14:00 y 16:30 — 20:00</p>
-                            <p>Sáb: 10:30 — 14:30</p>
-                        </div>
-                    </article>
+                <!-- Grid dinámico de filiales -->
+                <div class="branches-grid" id="branchesGrid">
+                    <p style="grid-column: 1 / -1; text-align: center; color: var(--color-text-muted); padding: 3rem 0;">
+                        Cargando sedes y filiales...
+                    </p>
                 </div>
             </div>
         </section>
@@ -158,96 +75,11 @@
                                 <th scope="col">Disponibilidad</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!-- Fila 1 -->
-                            <tr class="stock-row">
-                                <td class="album-cell">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=120&q=80"
-                                        alt="Portada de Skinty Fia"
-                                        class="stock-thumb"
-                                        loading="lazy"
-                                    />
-                                    <div class="album-meta-text">
-                                        <span class="stock-album-title">Skinty Fia</span>
-                                        <span class="stock-album-artist">Fontaines D.C.</span>
-                                    </div>
-                                </td>
-                                <td class="format-cell">Vinilo LP (180g Prensaje Audiófilo)</td>
-                                <td class="status-cell">
-                                    <span class="stock-badge in-stock">
-                                        <span class="badge-dot"></span>
-                                        Disponible (8 uds.)
-                                    </span>
-                                </td>
-                            </tr>
-
-                            <!-- Fila 2 -->
-                            <tr class="stock-row">
-                                <td class="album-cell">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=120&q=80"
-                                        alt="Portada de everything is alive"
-                                        class="stock-thumb"
-                                        loading="lazy"
-                                    />
-                                    <div class="album-meta-text">
-                                        <span class="stock-album-title">everything is alive</span>
-                                        <span class="stock-album-artist">Slowdive</span>
-                                    </div>
-                                </td>
-                                <td class="format-cell">Vinilo LP (Edición Especial)</td>
-                                <td class="status-cell">
-                                    <span class="stock-badge low-stock">
-                                        <span class="badge-dot"></span>
-                                        Últimas 2 uds.
-                                    </span>
-                                </td>
-                            </tr>
-
-                            <!-- Fila 3 -->
-                            <tr class="stock-row">
-                                <td class="album-cell">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=120&q=80"
-                                        alt="Portada de TANGK"
-                                        class="stock-thumb"
-                                        loading="lazy"
-                                    />
-                                    <div class="album-meta-text">
-                                        <span class="stock-album-title">TANGK</span>
-                                        <span class="stock-album-artist">IDLES</span>
-                                    </div>
-                                </td>
-                                <td class="format-cell">CD Master Audiófilo</td>
-                                <td class="status-cell">
-                                    <span class="stock-badge in-stock">
-                                        <span class="badge-dot"></span>
-                                        Disponible (12 uds.)
-                                    </span>
-                                </td>
-                            </tr>
-
-                            <!-- Fila 4 -->
-                            <tr class="stock-row">
-                                <td class="album-cell">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=120&q=80"
-                                        alt="Portada de Space Heavy"
-                                        class="stock-thumb"
-                                        loading="lazy"
-                                    />
-                                    <div class="album-meta-text">
-                                        <span class="stock-album-title">Space Heavy</span>
-                                        <span class="stock-album-artist">King Krule</span>
-                                    </div>
-                                </td>
-                                <td class="format-cell">Cassette Edición Limitada</td>
-                                <td class="status-cell">
-                                    <span class="stock-badge out-of-stock">
-                                        <span class="badge-dot"></span>
-                                        Agotado
-                                    </span>
+                        <!-- Filas dinámicas de inventario -->
+                        <tbody id="stockTableBody">
+                            <tr>
+                                <td colspan="3" style="text-align: center; color: var(--color-text-muted); padding: 2.5rem 0;">
+                                    Consultando existencias de almacén...
                                 </td>
                             </tr>
                         </tbody>
@@ -261,6 +93,7 @@
     <main-footer></main-footer>
 
     <script type="module" src="../src/js/main.js"></script>
+    <script type="module" src="../src/js/branches.js"></script>
     
 </body>
 
