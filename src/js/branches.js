@@ -1,6 +1,11 @@
 const API_URL = 'http://127.0.0.1:8000';
 const DEFAULT_COVER = 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=120&q=80';
 
+const api = axios.create({
+    baseURL: API_URL,
+    timeout: 10000
+});
+
 function escapeHtml(str) {
     if (str === null || str === undefined) return '';
     return String(str)
@@ -19,10 +24,8 @@ async function loadBranches() {
     if (!gridEl) return;
 
     try {
-        const res = await fetch(`${API_URL}/branches/`);
-        if (!res.ok) throw new Error('Error al obtener tiendas');
-
-        const branches = await res.json();
+        const res = await api.get('/branches/');
+        const branches = Array.isArray(res.data) ? res.data : [];
 
         if (branches.length === 0) {
             gridEl.innerHTML = `
@@ -86,14 +89,14 @@ async function loadStockTable() {
 
     try {
         const [stockRes, albumsRes, formatsRes] = await Promise.allSettled([
-            fetch(`${API_URL}/album-formats/`),
-            fetch(`${API_URL}/albums/`),
-            fetch(`${API_URL}/formats/`)
+            api.get('/album-formats/'),
+            api.get('/albums/'),
+            api.get('/formats/')
         ]);
 
-        const stockList = stockRes.status === 'fulfilled' && stockRes.value.ok ? await stockRes.value.json() : [];
-        const albums = albumsRes.status === 'fulfilled' && albumsRes.value.ok ? await albumsRes.value.json() : [];
-        const formats = formatsRes.status === 'fulfilled' && formatsRes.value.ok ? await formatsRes.value.json() : [];
+        const stockList = stockRes.status === 'fulfilled' ? (stockRes.value.data || []) : [];
+        const albums = albumsRes.status === 'fulfilled' ? (albumsRes.value.data || []) : [];
+        const formats = formatsRes.status === 'fulfilled' ? (formatsRes.value.data || []) : [];
 
         const albumsMap = Object.fromEntries(albums.map(a => [a.id, a]));
         const formatsMap = Object.fromEntries(formats.map(f => [f.id, f.name]));
