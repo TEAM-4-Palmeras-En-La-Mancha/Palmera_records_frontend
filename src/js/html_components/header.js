@@ -7,7 +7,6 @@ export class MainHeader extends HTMLElement {
     }
 
     connectedCallback() {
-        // pages/ está un solo nivel por debajo de la raíz
         const isInAdmin = window.location.pathname.includes('/admin/');
         const isInPages = window.location.pathname.includes('/pages/');
 
@@ -15,27 +14,31 @@ export class MainHeader extends HTMLElement {
         let filialesPath;
         let artistsPath;
         let discograficasPath;
+        let adminPath;
 
         if (isInAdmin) {
-            // Desde /admin/ hay que subir un nivel
+            // Desde /pages/admin/
             rootPath = '../../';
             filialesPath = '../../pages/filiales.html';
             artistsPath = '../../pages/artistas.html';
             discograficasPath = '../../pages/discograficas.html';
+            adminPath = 'index.html';
 
         } else if (isInPages) {
-            // Desde /pages/ hay que subir un nivel
+            // Desde /pages/
             rootPath = '../';
             filialesPath = 'filiales.html';
             artistsPath = 'artistas.html';
             discograficasPath = 'discograficas.html';
+            adminPath = 'admin/index.html';
 
         } else {
-            // Desde la raíz
+            // Desde la raíz (index.html)
             rootPath = './';
             filialesPath = 'pages/filiales.html';
             artistsPath = 'pages/artistas.html';
             discograficasPath = 'pages/discograficas.html';
+            adminPath = 'pages/admin/index.html';
         }
 
         this.innerHTML = `
@@ -49,10 +52,11 @@ export class MainHeader extends HTMLElement {
                     </div>
 
                     <nav class="header-nav" aria-label="Navegación principal">
-                        <a href="${rootPath}" class="nav-link">Catálogo</a>
-                        <a href="${artistsPath}" class="nav-link">Artistas</a>
-                        <a href="${discograficasPath}" class="nav-link">Discográficas</a>
-                        <a href="${filialesPath}" class="nav-link">Filiales y Stock</a>
+                        <a href="${rootPath}index.html" class="nav-link" data-nav="catalogo">Catálogo</a>
+                        <a href="${artistsPath}" class="nav-link" data-nav="artistas">Artistas</a>
+                        <a href="${discograficasPath}" class="nav-link" data-nav="discograficas">Discográficas</a>
+                        <a href="${filialesPath}" class="nav-link" data-nav="filiales">Filiales y Stock</a>
+                        <a href="${adminPath}" class="nav-link" data-nav="admin">Admin</a>
                     </nav>
 
                 </div>
@@ -64,7 +68,6 @@ export class MainHeader extends HTMLElement {
     }
 
     _setupEvents() {
-        // Evento al pulsar el botón del carrito
         const cartBtn = this.querySelector('#headerCartBtn');
         if (cartBtn) {
             cartBtn.addEventListener('click', () => {
@@ -75,7 +78,6 @@ export class MainHeader extends HTMLElement {
             });
         }
 
-        // Resaltar al hacer clic en enlaces de la misma página (anclas)
         const navLinks = this.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -87,27 +89,26 @@ export class MainHeader extends HTMLElement {
 
     _highlightActiveNav() {
         const currentPath = window.location.pathname;
-        const currentHash = window.location.hash;
+        let activeNav = 'catalogo';
+
+        if (currentPath.includes('/admin/')) {
+            activeNav = 'admin';
+        } else if (currentPath.includes('discograficas.html')) {
+            activeNav = 'discograficas';
+        } else if (currentPath.includes('artistas.html')) {
+            activeNav = 'artistas';
+        } else if (currentPath.includes('filiales.html')) {
+            activeNav = 'filiales';
+        } else if (!currentPath.includes('/pages/')) {
+            activeNav = 'catalogo';
+        }
+
         const navLinks = this.querySelectorAll('.nav-link');
-
         navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-
-            // 1. Si estamos en artistas.html
-            if (currentPath.includes('artistas.html') && href.includes('artistas.html')) {
+            if (link.dataset.nav === activeNav) {
                 link.classList.add('active');
-            }
-            // 2. Si estamos en filiales.html
-            else if (currentPath.includes('filiales.html') && href.includes('filiales.html')) {
-                link.classList.add('active');
-            }
-            // 3. Si estamos en una sección con ancla (#catalogo, #artistas, etc.)
-            else if (currentHash && href.endsWith(currentHash)) {
-                link.classList.add('active');
-            }
-            // 4. Si estamos en la portada (index.html o raíz) y no hay hash, activa Catálogo por defecto
-            else if (!currentHash && (currentPath.endsWith('/') || currentPath.endsWith('index.html')) && href.includes('#catalogo')) {
-                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
             }
         });
     }
