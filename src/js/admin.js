@@ -1,3 +1,5 @@
+// src/js/admin.js
+
 // ==========================================================================
 // CLIENTE AXIOS Y NOTIFICACIONES
 // ==========================================================================
@@ -64,7 +66,7 @@ function escapeHtml(str) {
 }
 
 // ==========================================================================
-// CONFIGURACIÓN DE LAS 6 ENTIDADES
+// CONFIGURACIÓN DE LAS 7 ENTIDADES
 // ==========================================================================
 const ENTITIES = {
     albums: {
@@ -206,6 +208,25 @@ const ENTITIES = {
             }
             return formData;
         }
+    },
+
+    genres: {
+        title: 'Gestión de Géneros Musicales',
+        endpoint: '/genres',
+        columns: ['Ref.', 'Nombre del Género'],
+        renderRow: (g) => `
+            <td class="font-mono">#${g.id}</td>
+            <td class="font-bold">${escapeHtml(g.name)}</td>
+        `,
+        getFields: (data = {}) => `
+            <div class="form-field full-width">
+                <label for="f-name">Nombre del Género *</label>
+                <input type="text" id="f-name" class="admin-input" value="${escapeHtml(data.name || '')}" placeholder="Ej: Post-Punk" required />
+            </div>
+        `,
+        getPayload: () => ({
+            name: document.getElementById('f-name').value.trim()
+        })
     },
 
     artists: {
@@ -590,7 +611,7 @@ async function createRecord(payload) {
         setStatus('loading', 'Guardando...');
         await api.post(`${config.endpoint}/`, payload);
         showNotification('Registro creado correctamente');
-        if (currentEntity === 'record_labels' || currentEntity === 'artists') {
+        if (currentEntity === 'record_labels' || currentEntity === 'artists' || currentEntity === 'genres') {
             await loadDropdownData();
         }
         switchAction('search');
@@ -619,7 +640,7 @@ async function updateRecord(payload) {
         await api.put(url, payload);
         showNotification('Registro actualizado correctamente');
         editingItem = null;
-        if (currentEntity === 'record_labels' || currentEntity === 'artists') {
+        if (currentEntity === 'record_labels' || currentEntity === 'artists' || currentEntity === 'genres') {
             await loadDropdownData();
         }
         switchAction('search');
@@ -641,7 +662,7 @@ async function deleteRecord(id) {
         setStatus('loading', 'Eliminando...');
         await api.delete(`${config.endpoint}/${id}`);
         showNotification(`Registro #${id} eliminado`);
-        if (currentEntity === 'record_labels' || currentEntity === 'artists') {
+        if (currentEntity === 'record_labels' || currentEntity === 'artists' || currentEntity === 'genres') {
             await loadDropdownData();
         }
         if (currentAction === 'delete') switchAction('search');

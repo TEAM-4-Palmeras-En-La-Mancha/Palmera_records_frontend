@@ -49,6 +49,9 @@
                         <button type="button" class="entity-btn active" data-entity="albums">
                             <span>Álbumes</span>
                         </button>
+                        <button type="button" class="entity-btn" data-entity="genres">
+                            <span>Géneros</span>
+                        </button>
                         <button type="button" class="entity-btn" data-entity="artists">
                             <span>Artistas</span>
                         </button>
@@ -140,7 +143,6 @@
                                         <th scope="col">Ref.</th>
                                         <th scope="col">Título</th>
                                         <th scope="col">Artista</th>
-                                        <th scope="col">Formato</th>
                                         <th scope="col" class="text-right">Acciones</th>
                                     </tr>
                                 </thead>
@@ -149,25 +151,6 @@
                                         <td class="font-mono">#01</td>
                                         <td class="font-bold">Skinty Fia</td>
                                         <td>Fontaines D.C.</td>
-                                        <td>Vinilo LP</td>
-                                        <td class="text-right">
-                                            <button type="button" class="btn-inline-action">Editar</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-mono">#02</td>
-                                        <td class="font-bold">everything is alive</td>
-                                        <td>Slowdive</td>
-                                        <td>Vinilo LP</td>
-                                        <td class="text-right">
-                                            <button type="button" class="btn-inline-action">Editar</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-mono">#03</td>
-                                        <td class="font-bold">TANGK</td>
-                                        <td>IDLES</td>
-                                        <td>CD Master</td>
                                         <td class="text-right">
                                             <button type="button" class="btn-inline-action">Editar</button>
                                         </td>
@@ -196,9 +179,6 @@
     <!-- Librería Axios y script de administración -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script defer src="../../src/js/admin.js"></script>
-    
-</body>
-</html>
 
 </body>
 </html>
