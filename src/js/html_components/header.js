@@ -17,7 +17,7 @@ export class MainHeader extends HTMLElement {
         let adminPath;
 
         if (isInAdmin) {
-            // Desde /pages/admin/
+
             rootPath = '../../';
             filialesPath = '../../pages/filiales.html';
             artistsPath = '../../pages/artistas.html';
@@ -25,7 +25,7 @@ export class MainHeader extends HTMLElement {
             adminPath = 'index.html';
 
         } else if (isInPages) {
-            // Desde /pages/
+
             rootPath = '../';
             filialesPath = 'filiales.html';
             artistsPath = 'artistas.html';
@@ -33,7 +33,7 @@ export class MainHeader extends HTMLElement {
             adminPath = 'admin/index.html';
 
         } else {
-            // Desde la raíz (index.html)
+
             rootPath = './';
             filialesPath = 'pages/filiales.html';
             artistsPath = 'pages/artistas.html';
@@ -51,7 +51,7 @@ export class MainHeader extends HTMLElement {
                         </a>
                     </div>
 
-                    <nav class="header-nav" aria-label="Navegación principal">
+                    <nav class="header-nav" id="headerNav" aria-label="Navegación principal">
                         <a href="${rootPath}index.html" class="nav-link" data-nav="catalogo">Catálogo</a>
                         <a href="${artistsPath}" class="nav-link" data-nav="artistas">Artistas</a>
                         <a href="${discograficasPath}" class="nav-link" data-nav="discograficas">Discográficas</a>
@@ -59,6 +59,13 @@ export class MainHeader extends HTMLElement {
                         <a href="${adminPath}" class="nav-link" data-nav="admin">Admin</a>
                     </nav>
 
+                    <div class="header-actions">
+                        <button type="button" class="menu-toggle" id="menuToggle" aria-label="Abrir menú de navegación" aria-expanded="false">
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                        </button>
+                    </div>
                 </div>
             </header>
         `;
@@ -68,6 +75,35 @@ export class MainHeader extends HTMLElement {
     }
 
     _setupEvents() {
+        const menuToggle = this.querySelector('#menuToggle');
+        const headerNav = this.querySelector('#headerNav');
+        const navLinks = this.querySelectorAll('.nav-link');
+
+        // Alternar menú hamburguesa en dispositivos móviles
+        if (menuToggle && headerNav) {
+            menuToggle.addEventListener('click', () => {
+                const isOpen = headerNav.classList.toggle('nav-open');
+                menuToggle.classList.toggle('is-active', isOpen);
+                menuToggle.setAttribute('aria-expanded', String(isOpen));
+                document.body.classList.toggle('no-scroll', isOpen);
+            });
+        }
+
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+
+                if (headerNav && menuToggle) {
+                    headerNav.classList.remove('nav-open');
+                    menuToggle.classList.remove('is-active');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    document.body.classList.remove('no-scroll');
+                }
+            });
+        });
+
         const cartBtn = this.querySelector('#headerCartBtn');
         if (cartBtn) {
             cartBtn.addEventListener('click', () => {
@@ -77,14 +113,6 @@ export class MainHeader extends HTMLElement {
                 }));
             });
         }
-
-        const navLinks = this.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-            });
-        });
     }
 
     _highlightActiveNav() {
