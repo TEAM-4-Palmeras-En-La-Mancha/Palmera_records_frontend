@@ -4,27 +4,36 @@
 
 .admin-section {
     padding-bottom: 5rem;
+    overflow-x: hidden;
 }
 
 .admin-layout {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 @media (min-width: 900px) {
     .admin-layout {
-        grid-template-columns: 240px 1fr;
+        grid-template-columns: 240px minmax(0, 1fr);
         align-items: start;
+        gap: 2rem;
     }
 }
 
-/* Barra lateral de secciones */
+/* ==========================================================================
+    BARRA LATERAL Y NAVEGACIÓN DE ENTIDADES
+   ========================================================================== */
+
 .admin-sidebar {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     padding: 1.25rem;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .sidebar-heading {
@@ -71,18 +80,23 @@
     font-weight: 600;
 }
 
-/* Área de trabajo central */
+/* ==========================================================================
+    ÁREA DE TRABAJO Y CABECERA
+   ========================================================================== */
+
 .admin-workspace {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .workspace-header {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding-bottom: 1.25rem;
+    padding-bottom: 1rem;
     border-bottom: 1px solid var(--color-border);
 }
 
@@ -107,7 +121,10 @@
     margin-top: 0.2rem;
 }
 
-/* Pestañas de acción */
+/* ==========================================================================
+    PESTAÑAS DE ACCIÓN
+   ========================================================================== */
+
 .actions-toolbar {
     display: flex;
     gap: 0.35rem;
@@ -127,6 +144,7 @@
     color: var(--color-text-muted);
     cursor: pointer;
     transition: all var(--transition);
+    white-space: nowrap;
 }
 
 .action-tab:hover {
@@ -139,12 +157,18 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-/* Tarjetas */
+/* ==========================================================================
+    FORMULARIOS Y TARJETAS
+   ========================================================================== */
+
 .admin-card {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     padding: 1.5rem;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .card-subtitle {
@@ -156,7 +180,6 @@
     margin-bottom: 1rem;
 }
 
-/* Formulario con campos estándar */
 fieldset.form-grid {
     border: none;
     padding: 0;
@@ -169,7 +192,7 @@ fieldset.form-grid {
 legend.card-subtitle {
     float: left;
     width: 100%;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
 }
 
 @media (min-width: 640px) {
@@ -182,6 +205,7 @@ legend.card-subtitle {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
+    min-width: 0;
 }
 
 .form-field.full-width {
@@ -205,6 +229,7 @@ legend.card-subtitle {
     font-size: 0.875rem;
     background-color: #ffffff;
     color: var(--color-text-main);
+    box-sizing: border-box;
     transition: border-color var(--transition);
 }
 
@@ -247,7 +272,10 @@ legend.card-subtitle {
     background-color: #dc2626;
 }
 
-/* Tabla de resultados */
+/* ==========================================================================
+    TABLA DE RESULTADOS
+   ========================================================================== */
+
 .result-header {
     display: flex;
     align-items: baseline;
@@ -286,11 +314,17 @@ legend.card-subtitle {
 }
 
 .results-table-wrapper {
+    width: 100%;
+    max-width: 100%;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+    box-sizing: border-box;
 }
 
 .results-table {
     width: 100%;
+    min-width: 520px;
     border-collapse: collapse;
     text-align: left;
     font-size: 0.875rem;
@@ -304,6 +338,7 @@ legend.card-subtitle {
     letter-spacing: 0.05em;
     color: var(--color-text-muted);
     border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
 }
 
 .results-table td {
@@ -311,6 +346,10 @@ legend.card-subtitle {
     border-bottom: 1px solid var(--color-surface-soft);
     color: var(--color-text-main);
     vertical-align: middle;
+}
+
+.results-table td.text-right {
+    white-space: nowrap;
 }
 
 .table-empty-state {
@@ -369,7 +408,7 @@ legend.card-subtitle {
 }
 
 /* ==========================================================================
-   FEEDBACK VISUAL Y PREVISUALIZADOR DE CARÁTULA
+    SUBIDA DE ARCHIVOS Y PORTADA
    ========================================================================== */
 
 .file-upload-zone {
@@ -402,7 +441,10 @@ legend.card-subtitle {
     display: block;
 }
 
-/* Sistema de notificaciones (Toasts) */
+/* ==========================================================================
+    NOTIFICACIONES FLOTANTES
+   ========================================================================== */
+
 .toast-container {
     position: fixed;
     bottom: 2rem;
@@ -439,4 +481,122 @@ legend.card-subtitle {
 .toast-error {
     background-color: #dc2626;
     color: #ffffff;
+}
+
+/* ==========================================================================
+    RESPONSIVE TABLETS Y MÓVILES (< 900px)
+   ========================================================================== */
+
+@media (max-width: 899px) {
+    .admin-sidebar {
+        background: transparent;
+        border: none;
+        padding: 0;
+        margin-bottom: 0.25rem;
+        width: 100%;
+    }
+
+    .sidebar-heading {
+        display: none;
+    }
+
+    .entity-nav {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        padding: 0;
+        width: 100%;
+    }
+
+    .entity-btn {
+        width: auto;
+        padding: 0.4rem 0.85rem;
+        background-color: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        font-size: 0.8rem;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    .entity-btn.active {
+        background-color: var(--color-text-main);
+        color: #ffffff;
+        border-color: var(--color-text-main);
+    }
+}
+
+/* ==========================================================================
+    RESPONSIVE MÓVILES (< 640px)
+   ========================================================================== */
+
+@media (max-width: 640px) {
+    .catalog-hero {
+        padding: 1.5rem 0 0.75rem 0;
+    }
+
+    .catalog-hero .hero-title {
+        font-size: 1.45rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .catalog-hero .hero-description {
+        display: none;
+    }
+
+    .workspace-header {
+        gap: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .workspace-caption {
+        display: none;
+    }
+
+    .endpoint-title {
+        font-size: 1.25rem;
+    }
+
+    .actions-toolbar {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.35rem;
+        padding: 0.35rem;
+        box-sizing: border-box;
+    }
+
+    .action-tab {
+        width: 100%;
+        padding: 0.55rem 0.25rem;
+        font-size: 0.78rem;
+        text-align: center;
+        box-sizing: border-box;
+    }
+
+    .admin-card {
+        padding: 1rem;
+    }
+
+    .file-upload-zone {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .btn-execute {
+        width: 100%;
+        text-align: center;
+    }
+
+    .toast-container {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+    }
+
+    .toast {
+        width: 100%;
+    }
 }
