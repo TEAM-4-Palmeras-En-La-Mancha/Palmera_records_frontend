@@ -8,11 +8,35 @@ export class MainHeader extends HTMLElement {
 
     connectedCallback() {
         // pages/ está un solo nivel por debajo de la raíz
+        const isInAdmin = window.location.pathname.includes('/admin/');
         const isInPages = window.location.pathname.includes('/pages/');
-        const rootPath = isInPages ? '../' : './';
-        const filialesPath = isInPages ? 'filiales.html' : 'pages/filiales.html';
-        const artistsPath = isInPages ? 'artistas.html' : 'pages/artistas.html';
-        const discograficasPath = isInPages ? 'discograficas.html' : 'pages/discograficas.html';
+
+        let rootPath;
+        let filialesPath;
+        let artistsPath;
+        let discograficasPath;
+
+        if (isInAdmin) {
+            // Desde /admin/ hay que subir un nivel
+            rootPath = '../../';
+            filialesPath = '../../pages/filiales.html';
+            artistsPath = '../../pages/artistas.html';
+            discograficasPath = '../../pages/discograficas.html';
+
+        } else if (isInPages) {
+            // Desde /pages/ hay que subir un nivel
+            rootPath = '../';
+            filialesPath = 'filiales.html';
+            artistsPath = 'artistas.html';
+            discograficasPath = 'discograficas.html';
+
+        } else {
+            // Desde la raíz
+            rootPath = './';
+            filialesPath = 'pages/filiales.html';
+            artistsPath = 'pages/artistas.html';
+            discograficasPath = 'pages/discograficas.html';
+        }
 
         this.innerHTML = `
             <header id="main-header">
@@ -25,7 +49,7 @@ export class MainHeader extends HTMLElement {
                     </div>
 
                     <nav class="header-nav" aria-label="Navegación principal">
-                        <a href="${rootPath}index.html#catalogo" class="nav-link">Catálogo</a>
+                        <a href="${rootPath}" class="nav-link">Catálogo</a>
                         <a href="${artistsPath}" class="nav-link">Artistas</a>
                         <a href="${discograficasPath}" class="nav-link">Discográficas</a>
                         <a href="${filialesPath}" class="nav-link">Filiales y Stock</a>
