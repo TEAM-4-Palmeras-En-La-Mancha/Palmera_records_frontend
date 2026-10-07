@@ -1,18 +1,28 @@
+// ==========================================================================
+// CONFIGURACIÓN Y ESTADO GLOBAL
+// ==========================================================================
 const API_URL = 'http://127.0.0.1:8000';
 const DEFAULT_COVER = 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=600&q=80';
 
-// Estado global del catálogo en memoria
+const api = axios.create({
+    baseURL: API_URL,
+    timeout: 10000
+});
+
 let allAlbums = [];
 let labelsMap = {};
 let genresMap = {};
 let priceMap = {};
-let albumFormatsMap = {}; // Relación album_id -> [format_id, ...]
+let albumFormatsMap = {};
 
 let currentGenreFilter = 'all';
 let currentFormatFilter = 'all';
 let currentSortOption = 'newest';
 let currentSearchQuery = '';
 
+// ==========================================================================
+// UTILIDADES
+// ==========================================================================
 function escapeHtml(str) {
     if (str === null || str === undefined) return '';
     return String(str)
@@ -34,6 +44,9 @@ function getAlbumPrice(albumId) {
     return priceMap[albumId] ?? 24.0;
 }
 
+// ==========================================================================
+// RENDERIZADO
+// ==========================================================================
 function renderCards(albumsToRender) {
     const gridEl = document.getElementById('catalogGrid');
     if (!gridEl) return;
@@ -65,9 +78,9 @@ function renderCards(albumsToRender) {
             <article class="album-card" data-id="${album.id}">
                 <div class="album-cover-wrapper">
                     <img src="${escapeHtml(cover)}" 
-                         alt="Portada de ${escapeHtml(album.title)}" 
-                         class="album-cover" 
-                         loading="lazy" />
+                        alt="Portada de ${escapeHtml(album.title)}" 
+                        class="album-cover" 
+                        loading="lazy" />
                     <span class="album-badge">${escapeHtml(genreName)}</span>
                 </div>
 
@@ -90,11 +103,12 @@ function renderCards(albumsToRender) {
     }).join('');
 }
 
-// Aplica simultáneamente género, formato, buscador y ordenación
+// ==========================================================================
+// FILTROS Y ORDENACIÓN
+// ==========================================================================
 function applyFiltersAndSort() {
     let result = [...allAlbums];
 
-    // 1. Filtro por Género
     if (currentGenreFilter !== 'all') {
         result = result.filter(album => {
             const matchGenres = album.genres?.some(g => String(g.id) === currentGenreFilter);
@@ -103,7 +117,6 @@ function applyFiltersAndSort() {
         });
     }
 
-    // 2. Filtro por Formato Físico
     if (currentFormatFilter !== 'all') {
         const targetFormatId = parseInt(currentFormatFilter, 10);
         result = result.filter(album => {
@@ -112,7 +125,6 @@ function applyFiltersAndSort() {
         });
     }
 
-    // 3. Filtro por Buscador de texto
     if (currentSearchQuery.trim() !== '') {
         const query = currentSearchQuery.toLowerCase();
         result = result.filter(album => {
@@ -123,7 +135,6 @@ function applyFiltersAndSort() {
         });
     }
 
-    // 4. Ordenación
     result.sort((a, b) => {
         if (currentSortOption === 'newest') {
             return (b.release_year || 0) - (a.release_year || 0) || b.id - a.id;
@@ -143,7 +154,9 @@ function applyFiltersAndSort() {
     renderCards(result);
 }
 
-// Configura los botones de género
+// ==========================================================================
+// CONTROLES Y EVENTOS
+// ==========================================================================
 function setupGenrePills(genres) {
     const pillsContainer = document.getElementById('genreFilters');
     if (!pillsContainer) return;
@@ -170,7 +183,6 @@ function setupGenrePills(genres) {
     });
 }
 
-// Configura el desplegable de formatos con los datos de /formats/
 function setupFormatSelector(formats) {
     const formatSelect = document.getElementById('formatSelector');
     if (!formatSelect) return;
@@ -190,7 +202,6 @@ function setupFormatSelector(formats) {
     });
 }
 
-// Configura el desplegable de ordenación y el buscador
 function setupControls() {
     const sortSelect = document.getElementById('sortSelector');
     if (sortSelect) {
@@ -223,38 +234,38 @@ function setupControls() {
     }
 }
 
+// ==========================================================================
+// INICIALIZACIÓN CON AXIOS
+// ==========================================================================
 export async function initCatalog() {
     const gridEl = document.getElementById('catalogGrid');
     if (!gridEl) return;
 
     try {
         const [albumsRes, labelsRes, genresRes, formatsRes, stockRes] = await Promise.allSettled([
-            fetch(`${API_URL}/albums/`),
-            fetch(`${API_URL}/record-labels/`),
-            fetch(`${API_URL}/genres/`),
-            fetch(`${API_URL}/formats/`),
-            fetch(`${API_URL}/album-formats/`)
+            api.get('/albums/'),
+            api.get('/record-labels/'),
+            api.get('/genres/'),
+            api.get('/formats/'),
+            api.get('/album-formats/')
         ]);
 
-        allAlbums = albumsRes.status === 'fulfilled' && albumsRes.value.ok ? await albumsRes.value.json() : [];
-        const labels = labelsRes.status === 'fulfilled' && labelsRes.value.ok ? await labelsRes.value.json() : [];
-        const genres = genresRes.status === 'fulfilled' && genresRes.value.ok ? await genresRes.value.json() : [];
-        const formats = formatsRes.status === 'fulfilled' && formatsRes.value.ok ? await formatsRes.value.json() : [];
-        const stockList = stockRes.status === 'fulfilled' && stockRes.value.ok ? await stockRes.value.json() : [];
+        allAlbums = albumsRes.status === 'fulfilled' ? albumsRes.value.data : [];
+        const labels = labelsRes.status === 'fulfilled' ? labelsRes.value.data : [];
+        const genres = genresRes.status === 'fulfilled' ? genresRes.value.data : [];
+        const formats = formatsRes.status === 'fulfilled' ? formatsRes.value.data : [];
+        const stockList = stockRes.status === 'fulfilled' ? stockRes.value.data : [];
 
         labelsMap = Object.fromEntries(labels.map(l => [l.id, l.name]));
         genresMap = Object.fromEntries(genres.map(g => [g.id, g.name]));
 
-        // Mapa de precios mínimos y asignación de formatos por álbum
         priceMap = {};
         albumFormatsMap = {};
 
         stockList.forEach(item => {
-            // Precio más bajo por álbum
             if (!priceMap[item.album_id] || item.price < priceMap[item.album_id]) {
                 priceMap[item.album_id] = item.price;
             }
-            // Formatos en los que existe este álbum
             if (!albumFormatsMap[item.album_id]) {
                 albumFormatsMap[item.album_id] = [];
             }
