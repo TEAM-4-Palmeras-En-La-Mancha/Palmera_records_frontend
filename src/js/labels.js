@@ -11,6 +11,11 @@
 
 import { API_URL } from './config.js';
 
+const api = axios.create({
+  baseURL: API_URL,
+  timeout: 10000,
+});
+
 const state = {
   labels: [],
   albumsByLabel: new Map(),
@@ -21,8 +26,6 @@ const state = {
   loading: true,
   error: '',
 };
-
-// --- Utilidades ------------------------------------------------------------
 
 function escapeHtml(str) {
   if (str === null || str === undefined) return '';
@@ -50,12 +53,9 @@ function debounce(fn, delay = 200) {
 }
 
 async function fetchJson(path) {
-  const res = await fetch(`${API_URL}${path}`);
-  if (!res.ok) throw new Error(`GET ${path} -> HTTP ${res.status}`);
-  return res.json();
+  const res = await api.get(path);
+  return res.data;
 }
-
-// --- Carga desde el backend ------------------------------------------------
 
 async function loadFromApi() {
   state.loading = true;
@@ -72,7 +72,6 @@ async function loadFromApi() {
     state.labels = Array.isArray(labels) ? labels : [];
     state.countries = Array.isArray(countries) ? countries : [];
 
-    // Mapa album_id -> nombres de artistas (ArtistResponse.album_ids).
     const byAlbum = new Map();
     (Array.isArray(artists) ? artists : []).forEach((artist) => {
       (artist.album_ids || []).forEach((albumId) => {
@@ -82,7 +81,7 @@ async function loadFromApi() {
     });
     state.artistsByAlbum = byAlbum;
 
-    // Álbumes de cada sello (AlbumSummary, sin artistas incluidos).
+
     const albumsByLabel = new Map();
     await Promise.all(
       state.labels.map(async (label) => {
@@ -106,7 +105,6 @@ async function loadFromApi() {
   }
 }
 
-// --- Filtrado (solo campos reales: name + country) -------------------------
 
 function getFilteredLabels() {
   const q = normalize(state.query.trim());
@@ -119,7 +117,6 @@ function getFilteredLabels() {
   });
 }
 
-// --- Render ----------------------------------------------------------------
 
 function renderCover(album) {
   if (album.cover_image_url) {
@@ -236,7 +233,6 @@ function renderCountryFilters() {
   });
 }
 
-// --- Eventos ---------------------------------------------------------------
 
 function initSearch() {
   const searchInput = document.getElementById('labelSearch');
@@ -251,7 +247,6 @@ function initSearch() {
   }
 }
 
-// --- Init ------------------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
   initSearch();
