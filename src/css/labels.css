@@ -1,0 +1,258 @@
+/* ==========================================================================
+    DISCOGRÁFICAS — ESTILO GLOBAL Y TOKENS DE PALMERAS RECORDS
+   ========================================================================== */
+
+/* El Hero utiliza directamente las reglas y colores oficiales de hero.css */
+.catalog-hero .hero-eyebrow {
+    color: var(--color-accent);
+}
+
+.catalog-hero .hero-title {
+    color: var(--color-text-main);
+}
+
+.catalog-hero .hero-description {
+    color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+    TOOLBAR: BÚSQUEDA Y FILTROS POR PAÍS
+   ========================================================================== */
+.label-toolbar {
+    padding: 0 0 2.5rem;
+}
+
+.label-toolbar__form {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 0.75rem;
+    background-color: var(--color-surface-soft);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+}
+
+/* Buscador */
+.label-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1 1 340px;
+    min-width: 0;
+}
+
+.label-search__icon {
+    position: absolute;
+    left: 0.85rem;
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+    pointer-events: none;
+}
+
+.label-search__input {
+    width: 100%;
+    padding: 0.65rem 1rem 0.65rem 2.5rem;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    color: var(--color-text-main);
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.label-search__input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.label-search__input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(24, 24, 27, 0.08);
+}
+
+/* Filtros por país (Mismo estilo que las píldoras de género) */
+.territory-filters {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.territory-pill {
+    padding: 0.5rem 0.95rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+    transition: all var(--transition);
+}
+
+.territory-pill:hover {
+    border-color: var(--color-primary);
+    color: var(--color-text-main);
+    background-color: var(--color-surface-soft);
+}
+
+.territory-pill.active {
+    background-color: var(--color-primary);
+    color: var(--color-primary-text);
+    border-color: var(--color-primary);
+}
+
+/* ==========================================================================
+    SECCIÓN DE SELLOS
+   ========================================================================== */
+.label-featured {
+    padding: 0.75rem 0 5rem;
+}
+
+.label-block {
+    margin-bottom: 3.5rem;
+}
+
+.label-block:last-child {
+    margin-bottom: 0;
+}
+
+.label-featured__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+}
+
+.label-featured__title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.35rem;
+}
+
+.label-featured__name {
+    font-family: var(--font-family);
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-text-main);
+}
+
+.label-featured__location {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.label-featured__location .material-symbols-outlined {
+    font-size: 1rem;
+    color: var(--color-accent);
+}
+
+/* ==========================================================================
+    TABLA DE LANZAMIENTOS (Sin tintes morados, neutra y limpia)
+   ========================================================================== */
+.label-table {
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+/* Cabecera neutra zinc */
+.label-table__head {
+    display: grid;
+    grid-template-columns: 56px 1.6fr 1.2fr 0.5fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+    background-color: var(--color-surface-soft);
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+}
+
+/* Filas */
+.label-table__row {
+    display: grid;
+    grid-template-columns: 56px 1.6fr 1.2fr 0.5fr;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    transition: background-color var(--transition);
+}
+
+.label-table__row:last-child {
+    border-bottom: none;
+}
+
+.label-table__row:hover {
+    background-color: var(--color-surface-soft);
+}
+
+/* Miniatura de portada */
+.label-table__cover {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background-color: var(--color-surface-soft);
+    border: 1px solid var(--color-border);
+}
+
+.label-table__cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.label-table__cover--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+}
+
+.label-table__cover--empty .material-symbols-outlined {
+    font-size: 1.5rem;
+}
+
+/* Textos de la fila */
+.label-table__album {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-text-main);
+}
+
+.label-table__artist {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+}
+
+.label-table__year {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+/* Estados de carga y vacío */
+.label-loading {
+    padding: 3rem 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-text-
