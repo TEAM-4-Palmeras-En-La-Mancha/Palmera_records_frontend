@@ -9,7 +9,7 @@
 // La tabla es: Portada | Álbum | Artista | Año 
 // ==========================================================================
 
-const API_BASE = 'http://127.0.0.1:8000';
+import { API_URL } from './config.js';
 
 const state = {
   labels: [],
@@ -50,7 +50,7 @@ function debounce(fn, delay = 200) {
 }
 
 async function fetchJson(path) {
-  const res = await fetch(`${API_BASE}${path}`);
+  const res = await fetch(`${API_URL}${path}`);
   if (!res.ok) throw new Error(`GET ${path} -> HTTP ${res.status}`);
   return res.json();
 }
@@ -98,7 +98,7 @@ async function loadFromApi() {
   } catch (err) {
     console.error(err);
     state.error =
-      'No se pudo conectar con la API (http://127.0.0.1:8000). Arranca el backend y recarga la página.';
+      `No se pudo conectar con la API (${API_URL}). Arranca el backend y recarga la página.`;
   } finally {
     state.loading = false;
     renderCountryFilters();

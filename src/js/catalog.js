@@ -1,4 +1,5 @@
-const API_URL = 'http://127.0.0.1:8000';
+import { API_URL } from './config.js';
+
 const DEFAULT_COVER = 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=600&q=80';
 
 // Estado global del catálogo en memoria

@@ -1,10 +1,12 @@
 // src/js/admin.js
 
+import { API_URL } from './config.js';
+
 // ==========================================================================
 // CLIENTE AXIOS Y NOTIFICACIONES
 // ==========================================================================
 const api = axios.create({
-    baseURL: 'http://127.0.0.1:8000',
+    baseURL: API_URL,
     timeout: 10000
 });
 
